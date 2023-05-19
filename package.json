@@ -10,6 +10,7 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@plasmohq/messaging": "^0.3.0",
     "@plasmohq/storage": "^1.6.0",
     "plasmo": "0.70.1",

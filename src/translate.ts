@@ -6,5 +6,6 @@ export const translation = {
   Submit: " Save",
   Login: "Login",
   LoginText: "Please login to see data",
-  SaveBookMarksText: " Saved bookmarks"
+  SaveBookMarksText: " Saved bookmarks",
+  Finder_io: "Finder.io"
 }

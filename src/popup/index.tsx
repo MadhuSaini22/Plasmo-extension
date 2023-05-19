@@ -5,6 +5,13 @@ import { useEffect, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 
+import Footer from "~components/Footer"
+import Header from "~components/Header"
+import MenuBar from "~components/MenuBar"
+import SearchBar from "~components/SearchBar"
+import BodyHeader from "~components/bodySection/Emails/BodyHeader"
+import ProsBody from "~components/bodySection/Prospects/ProsBody"
+import ProsHeader from "~components/bodySection/Prospects/ProsHeader"
 import SkeletonLoader from "~components/loaders/SkeletonLoader"
 import { config } from "~config"
 import { translation } from "~translate"
@@ -40,35 +47,34 @@ function IndexPopup() {
   }, [selectedKeyword])
 
   return (
-    <div className="w-[550px] h-[450px] overflow-y-auto flex items-center justify-center p-6">
-      <div className="flex w-full flex-col">
-        {!isLoggedIn ? (
-          <div
-            id="second"
-            className="p-5   z-[999] flex flex-col items-center justify-center  mb-5">
-            <span className=" my-3 text-lg text-center font-bold">
-              {translation.LoginText}
-            </span>
-            <button
-              onClick={() => chrome.tabs.create({ url: `${config.homePage}` })}
-              className={`py-3 flex items-center justify-center space-x-3 px-8 rounded-lg w-[120px] h-[50px] text-white font-bold text-base bg-violet-400 hover:bg-violet-500 `}>
-              <span>{translation.Login}</span>
-            </button>
-          </div>
-        ) : (
-          <></>
-        )}
-        <div className="w-full py-4 px-5 border-b border-slate-200 rounded-sm items-center justify-center text-lg flex space-x-16">
-          {types.map((elem, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedKeyword(elem)}
-              className="capitalize">
-              {elem}
-            </button>
-          ))}
+    <div className="w-[500px] flex-col overflow-y-auto  flex items-center justify-center px-3 py-1">
+      {!isLoggedIn ? (
+        <div
+          id="second"
+          className="p-5 z-[999] flex flex-col items-center justify-center mb-5">
+          <span className=" my-3 text-lg text-center font-bold">
+            {translation.LoginText}
+          </span>
+          <button
+            onClick={() => chrome.tabs.create({ url: `${config.homePage}` })}
+            className={`py-3 flex items-center justify-center space-x-3 px-8 rounded-lg w-[120px] h-[50px] text-white font-bold text-base bg-violet-400 hover:bg-violet-500 `}>
+            <span>{translation.Login}</span>
+          </button>
         </div>
-        {submitState.loading ? (
+      ) : (
+        <></>
+      )}
+      <SearchBar />
+      <Header />
+
+      <div className="flex w-full h-full flex-col">
+        <MenuBar types={types} setSelectedKeyword={setSelectedKeyword} />
+        {/* <BodyHeader /> */}
+        {/* <ProsHeader /> */}
+        <ProsBody />
+        <Footer />
+
+        {/* {submitState.loading ? (
           <div className="flex items-center">
             <SkeletonLoader
               boxLoaderHeight="40px"
@@ -88,7 +94,7 @@ function IndexPopup() {
               <div>No data found</div>
             )}
           </>
-        )}
+        )} */}
       </div>
     </div>
   )
