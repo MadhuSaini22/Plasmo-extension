@@ -1,7 +1,7 @@
 import user from "data-base64:~assets/user.svg"
 import React from "react"
 
-export default function Footer() {
+export default function Footer({ userData }) {
   return (
     <div className="flex w-full  rounded-lg items-center space-x-3 pt-2">
       <div className="flex h-16 w-20 items-center justify-center rounded-lg">

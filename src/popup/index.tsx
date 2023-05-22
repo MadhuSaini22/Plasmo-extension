@@ -10,29 +10,34 @@ import Footer from "~components/Footer"
 import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
-import BodyHeader from "~components/bodySection/Emails/BodyHeader"
-import ProsBody from "~components/bodySection/Prospects/ProsBody"
-import ProsHeader from "~components/bodySection/Prospects/ProsHeader"
-import SkeletonLoader from "~components/loaders/SkeletonLoader"
 import { config } from "~config"
 import { translation } from "~translate"
-import { checkCookie, fetchData, fetchKeywordData } from "~utils"
+import { checkCookie, fetchData, getDomainInfo, getUserInfo } from "~utils"
+
+const types = ["technologies", "prospects", "emails"]
 
 function IndexPopup() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [selectedKeyword, setSelectedKeyword] = useState<any>("prospects")
   const [keywordData, setKeywordData] = useState<any>()
+  const [domainData, setDomainData] = useState({})
+  const [userData, setUserData] = useState({})
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
     error: undefined
   })
-  const types = ["technologies", "prospects", "emails"]
-  console.log(selectedKeyword)
+
   useEffect(() => {
     const fetchData = async () => {
       const cookie = await checkCookie()
       if (cookie == true) setIsLoggedIn(true)
       else setIsLoggedIn(false)
+      const domainInfo = await getDomainInfo()
+      if (domainInfo) setDomainData(domainInfo)
+      else setDomainData({})
+      const userInfo = await getUserInfo()
+      if (userInfo) setUserData(userInfo)
+      else setUserData({})
     }
     fetchData()
   }, [])
@@ -66,41 +71,16 @@ function IndexPopup() {
         <></>
       )}
       <SearchBar />
-      <Header />
-
+      <Header domainData={domainData} />
       <div className="flex w-full h-full flex-col">
         <MenuBar
           types={types}
           setSelectedKeyword={setSelectedKeyword}
           selectedKeyword={selectedKeyword}
         />
-        {/* <BodyHeader /> */}
-        {/* <ProsHeader /> */}
-        {/* <ProsBody /> */}
-        <BodySection selectedKeyword={selectedKeyword} />
-        <Footer />
 
-        {/* {submitState.loading ? (
-          <div className="flex items-center">
-            <SkeletonLoader
-              boxLoaderHeight="40px"
-              boxLoaderWidth="500px"
-              gridCount={5}
-            />
-          </div>
-        ) : (
-          <>
-            {keywordData && keywordData.length > 0 ? (
-              <div>
-                {keywordData.map((elem, index) => (
-                  <div key={index}>{elem.title ? elem.title : elem.name}</div>
-                ))}
-              </div>
-            ) : (
-              <div>No data found</div>
-            )}
-          </>
-        )} */}
+        <BodySection selectedKeyword={selectedKeyword} />
+        <Footer userData={userData} />
       </div>
     </div>
   )

@@ -17,15 +17,61 @@ export const checkCookie = () => {
 }
 
 const urls = {
-  technologies: "https://jsonplaceholder.typicode.com/posts",
+  technologies:
+    "https://api.eu1.500apps.com/technographics/domain/technologies/css?offset=0&limit=50",
   prospects: "https://jsonplaceholder.typicode.com/comments",
   emails: "https://jsonplaceholder.typicode.com/albums"
 }
 
-// Call the API for the dropdown data
+// Call the API for the keyword data
 export const fetchKeywordData = async (keyword: any) => {
   return new Promise((resolve, reject) => {
-    fetch(`${urls[keyword]}`)
+    fetch(`${urls[keyword]}`, {
+      method: "GET",
+      headers: {
+        Authorization: `${config.cookie}`
+      }
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+        resolve(false)
+      })
+  })
+}
+
+// Call the API for the domain data
+export const getDomainInfo = async () => {
+  return new Promise((resolve, reject) => {
+    fetch(`${config.domainEndpoint}`, {
+      method: "GET",
+      headers: {
+        Authorization: `${config.cookie}`
+      }
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+        resolve(false)
+      })
+  })
+}
+
+// Call the API for the domain data
+export const getUserInfo = async () => {
+  return new Promise((resolve, reject) => {
+    fetch(`${config.userEndpoint}`, {
+      method: "GET",
+      headers: {
+        Authorization: `${config.cookie}`
+      }
+    })
       .then((res) => res.json())
       .then((data: any) => {
         resolve(data)
@@ -47,6 +93,7 @@ export const fetchData = async (
   const currentData: any = await sendToBackground({
     name: selectedKeyword
   })
+
   if (currentData) {
     setKeywordData(currentData)
   } else {

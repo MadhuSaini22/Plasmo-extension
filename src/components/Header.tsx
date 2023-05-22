@@ -6,7 +6,7 @@ import linkedin from "data-base64:~assets/linkedin.png"
 import twitter from "data-base64:~assets/twitter.png"
 import React from "react"
 
-export default function Header() {
+export default function Header({ domainData }) {
   return (
     <div className="flex  w-full mt-3 rounded-lg  border-2 border-gray-400 items-center   space-x-3 p-2">
       <div className="flex h-16 w-20 items-center justify-center rounded-lg border-2 border-gray-400 ">
