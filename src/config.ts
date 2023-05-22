@@ -6,5 +6,7 @@ export const config = {
   domainEndpoint:
     "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
   userEndpoint:
+    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
+  emails:
     "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50"
 }

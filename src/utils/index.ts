@@ -18,9 +18,11 @@ export const checkCookie = () => {
 
 const urls = {
   technologies:
-    "https://api.eu1.500apps.com/technographics/domain/technologies/css?offset=0&limit=50",
-  prospects: "https://jsonplaceholder.typicode.com/comments",
-  emails: "https://jsonplaceholder.typicode.com/albums"
+    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
+  prospects:
+    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
+  emails:
+    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50"
 }
 
 // Call the API for the keyword data
