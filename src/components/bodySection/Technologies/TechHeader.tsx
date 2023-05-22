@@ -1,10 +1,10 @@
 import { FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import React from "react"
 
-export default function BodyHeader() {
+export default function TechHeader() {
   return (
     <div className="flex justify-between">
-      <div className="relative mt-2 rounded-md mb-6 shadow-sm">
+      <div className="relative mt-2 rounded-md mb-3 shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 flex items-center left-2">
           <MagnifyingGlassIcon className="w-4 h-5 text-black" />
         </div>
@@ -17,7 +17,7 @@ export default function BodyHeader() {
           placeholder="Search Technologies"
         />
       </div>
-      <div className="relative mt-2 rounded-md mb-6 shadow-sm">
+      <div className="relative mt-2 rounded-md mb-3 shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 flex items-center left-2">
           <FunnelIcon className="w-4 h-5 text-black" />
         </div>

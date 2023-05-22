@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 
+import BodySection from "~components/BodySection"
 import Footer from "~components/Footer"
 import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
@@ -19,14 +20,14 @@ import { checkCookie, fetchData, fetchKeywordData } from "~utils"
 
 function IndexPopup() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
-  const [selectedKeyword, setSelectedKeyword] = useState<any>("first")
+  const [selectedKeyword, setSelectedKeyword] = useState<any>("prospects")
   const [keywordData, setKeywordData] = useState<any>()
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
     error: undefined
   })
-  const types = ["first", "second", "third"]
-
+  const types = ["technologies", "prospects", "emails"]
+  console.log(selectedKeyword)
   useEffect(() => {
     const fetchData = async () => {
       const cookie = await checkCookie()
@@ -47,7 +48,7 @@ function IndexPopup() {
   }, [selectedKeyword])
 
   return (
-    <div className="w-[500px] flex-col overflow-y-auto  flex items-center justify-center px-3 py-1">
+    <div className="w-[500px] flex-col overflow-y-auto rounded-xl flex items-center justify-center px-3 py-1">
       {!isLoggedIn ? (
         <div
           id="second"
@@ -68,10 +69,15 @@ function IndexPopup() {
       <Header />
 
       <div className="flex w-full h-full flex-col">
-        <MenuBar types={types} setSelectedKeyword={setSelectedKeyword} />
+        <MenuBar
+          types={types}
+          setSelectedKeyword={setSelectedKeyword}
+          selectedKeyword={selectedKeyword}
+        />
         {/* <BodyHeader /> */}
         {/* <ProsHeader /> */}
-        <ProsBody />
+        {/* <ProsBody /> */}
+        <BodySection selectedKeyword={selectedKeyword} />
         <Footer />
 
         {/* {submitState.loading ? (

@@ -1,9 +1,7 @@
-import {
-  HomeModernIcon,
-  MapPinIcon,
-  UserGroupIcon
-} from "@heroicons/react/24/outline"
+import { MapPinIcon } from "@heroicons/react/24/outline"
+import building from "data-base64:~assets/building.svg"
 import globe from "data-base64:~assets/globe.png"
+import group from "data-base64:~assets/group.svg"
 import linkedin from "data-base64:~assets/linkedin.png"
 import twitter from "data-base64:~assets/twitter.png"
 import React from "react"
@@ -30,11 +28,14 @@ export default function Header() {
 
         <div className="space-x-3 italic text-zinc-500 flex">
           <div className="text-[10px] space-x-2 flex">
-            <UserGroupIcon className="w-4 h-4 text-black" />
-            <span>100-200</span>
+            {/* <UserGroupIcon className="w-4 h-4 text-black" /> */}
+            <img className="h-[18px]" src={group} alt="" />
+            <span>100-250</span>
           </div>
           <div className="text-[10px] space-x-2 flex">
-            <HomeModernIcon className="w-4 h-4 text-black" />
+            {/* <HomeModernIcon className="w-4 h-4 text-black" /> */}
+            <img className="h-[18px]" src={building} alt="" />
+
             <span>Paper and Textile Goods</span>
           </div>
         </div>

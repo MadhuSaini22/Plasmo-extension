@@ -17,9 +17,9 @@ export const checkCookie = () => {
 }
 
 const urls = {
-  first: "https://jsonplaceholder.typicode.com/posts",
-  second: "https://jsonplaceholder.typicode.com/comments",
-  third: "https://jsonplaceholder.typicode.com/albums"
+  technologies: "https://jsonplaceholder.typicode.com/posts",
+  prospects: "https://jsonplaceholder.typicode.com/comments",
+  emails: "https://jsonplaceholder.typicode.com/albums"
 }
 
 // Call the API for the dropdown data
