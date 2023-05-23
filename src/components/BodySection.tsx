@@ -7,8 +7,10 @@ import TechBody from "./bodySection/Technologies/TechBody"
 export default function BodySection({ selectedKeyword, keywordData }) {
   return (
     <div>
-      {selectedKeyword == "technologies" && <TechBody />}
-      {selectedKeyword == "prospects" && <ProsBody />}
+      {selectedKeyword == "technologies" && (
+        <TechBody keywordData={keywordData} />
+      )}
+      {selectedKeyword == "prospects" && <ProsBody keywordData={keywordData} />}
       {selectedKeyword == "emails" && <EmailBody keywordData={keywordData} />}
     </div>
   )

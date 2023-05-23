@@ -18,32 +18,50 @@ export default function Header({ domainData }) {
       </div>
       <div className="h-16 w-full">
         <div className="space-x-3 flex">
-          <div className="font-bold text-xl">Salesforce </div>
-          <div className="flex justify-center space-x-3 mt-1">
-            <img className="max-h-[16px]" src={linkedin} alt="" />
-            <img className="max-h-[16px]" src={twitter} alt="" />
-            <img className="max-h-[16px]" src={globe} alt="" />
+          <div className="font-bold text-xl max-w-[280px] line-clamp-1">
+            {domainData?.company_name}
+          </div>
+          <div className="flex justify-center items-center space-x-3 mt-1">
+            <a href={domainData?.company_linkedin_url} target="_blank">
+              <img
+                src={linkedin}
+                alt="Five cats looking around a field."
+                className="h-[16px] w-[16px] cursor-pointer"
+              />
+            </a>
+            <a href={domainData?.company_twitter_url} target="_blank">
+              <img
+                src={twitter}
+                alt="Five cats looking around a field."
+                className="h-[16px] w-[16px] cursor-pointer"
+              />
+            </a>
+            <a href={domainData?.company_website} target="_blank">
+              <img
+                src={globe}
+                alt="Five cats looking around a field."
+                className="h-[16px] w-[16px] cursor-pointer"
+              />
+            </a>
           </div>
         </div>
 
         <div className="space-x-3 italic text-zinc-500 flex">
           <div className="text-[10px] space-x-2 flex">
-            {/* <UserGroupIcon className="w-4 h-4 text-black" /> */}
             <img className="h-[18px]" src={group} alt="" />
-            <span>100-250</span>
+            <span>{domainData?.company_size}</span>
           </div>
           <div className="text-[10px] space-x-2 flex">
-            {/* <HomeModernIcon className="w-4 h-4 text-black" /> */}
             <img className="h-[18px]" src={building} alt="" />
 
-            <span>Paper and Textile Goods</span>
+            <span>{domainData?.company_industry}</span>
           </div>
         </div>
 
         <div className="space-x-3 italic text-zinc-500 flex">
           <div className="text-[10px] space-x-2 flex">
             <MapPinIcon className="w-4 h-4 text-black" />
-            <span>Scranton, Pennsylvania, USA</span>
+            <span>{domainData?.company_location_name}</span>
           </div>
         </div>
       </div>

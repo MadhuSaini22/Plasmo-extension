@@ -18,11 +18,11 @@ export const checkCookie = () => {
 
 const urls = {
   technologies:
-    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
+    "https://api.eu1.500apps.com/technographics/domain/salesforce.com?offset=0&limit=50",
   prospects:
-    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
+    "https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25salesforce.com%25%27",
   emails:
-    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50"
+    "https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25salesforce.com%25%27  "
 }
 
 // Call the API for the keyword data
@@ -53,6 +53,29 @@ export const getDomainInfo = async () => {
       headers: {
         Authorization: `${config.cookie}`
       }
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+        resolve(false)
+      })
+  })
+}
+
+// Call the API for the domain data
+export const addToContact = async (body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${config.addToContact}`, {
+      method: "POST",
+
+      headers: {
+        Authorization: `${config.cookie}`,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(body)
     })
       .then((res) => res.json())
       .then((data: any) => {
