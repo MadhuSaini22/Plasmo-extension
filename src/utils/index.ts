@@ -48,19 +48,28 @@ export const fetchKeywordData = async (keyword: any) => {
 // Call the API for the domain data
 export const getDomainInfo = async () => {
   return new Promise((resolve, reject) => {
-    fetch(`${config.domainEndpoint}`, {
-      method: "GET",
-      headers: {
-        Authorization: `${config.cookie}`
-      }
-    })
-      .then((res) => res.json())
-      .then((data: any) => {
-        resolve(data)
+    getCurrentTabDomainName()
+      .then((domainName) => {
+        fetch(
+          `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25${domainName}%25%27`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `${config.cookie}`
+            }
+          }
+        )
+          .then((res) => res.json())
+          .then((data: any) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            console.error("Error:", error)
+            resolve(false)
+          })
       })
       .catch((error) => {
-        console.error("Error:", error)
-        resolve(false)
+        console.error("Error occurred while retrieving current tab:", error)
       })
   })
 }
@@ -112,7 +121,8 @@ export const fetchData = async (
   setSubmitState,
   setKeywordData,
   sendToBackground,
-  selectedKeyword
+  selectedKeyword,
+  flag
 ) => {
   setSubmitState((prev: any) => ({ ...prev, loading: true }))
   const currentData: any = await sendToBackground({
@@ -120,10 +130,49 @@ export const fetchData = async (
   })
 
   if (currentData) {
-    setKeywordData(currentData)
+    flag
+      ? setKeywordData((prev) => ({
+          ...prev,
+          [selectedKeyword]: currentData.length
+        }))
+      : setKeywordData(currentData)
     setSubmitState((prev: any) => ({ ...prev, loading: false }))
   } else {
     setKeywordData([])
     setSubmitState((prev: any) => ({ ...prev, error: true, loading: false }))
   }
+}
+
+export const getStats = async (sendToBackground, selectedKeyword) => {
+  try {
+    const currentData: any = await sendToBackground({
+      name: selectedKeyword
+    })
+    return currentData
+  } catch (error) {
+    console.error("An error occurred:", error)
+    return false
+  }
+}
+
+export function getCurrentTabDomainName() {
+  return new Promise((resolve, reject) => {
+    chrome.tabs
+      .query({ active: true, currentWindow: true })
+      .then((tabs) => {
+        if (tabs && tabs.length > 0) {
+          const tab = tabs[0]
+          const url = new URL(tab.url)
+          const domainName = url.hostname.startsWith("www.")
+            ? url.hostname.substring(4)
+            : url.hostname
+          resolve(domainName)
+        } else {
+          reject(new Error("Unable to retrieve current tab."))
+        }
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
 }

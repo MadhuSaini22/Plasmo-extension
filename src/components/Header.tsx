@@ -70,7 +70,7 @@ export default function Header({ domainData }) {
         </>
       ) : (
         <SkeletonLoader
-          boxLoaderHeight="84px"
+          boxLoaderHeight="64px"
           boxLoaderWidth="456px"
           customClass=""
           gridCount={1}

@@ -6,7 +6,8 @@ import React from "react"
 export default function MenuBar({
   types,
   setSelectedKeyword,
-  selectedKeyword
+  selectedKeyword,
+  keywordData
 }) {
   return (
     <div className="w-full mt-3 py-2 border-b-2 border-slate-400 items-center justify-between text-lg flex">
@@ -20,7 +21,8 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "technologies" ? "text-blue-500" : "text-black"
             }`}>
-            Technologies (57)
+            Technologies (
+            {keywordData.technologies ? keywordData.technologies : 50})
           </span>
         </div>
       </button>
@@ -33,7 +35,7 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "prospects" ? "text-blue-500" : "text-black"
             }`}>
-            Prospects (128)
+            Prospects ({keywordData.prospects ? keywordData.prospects : 50})
           </span>
         </div>
       </button>
@@ -46,7 +48,7 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "emails" ? "text-blue-500" : "text-black"
             }`}>
-            Emails (57)
+            Emails ({keywordData.emails ? keywordData.emails : 50})
           </span>
         </div>
       </button>

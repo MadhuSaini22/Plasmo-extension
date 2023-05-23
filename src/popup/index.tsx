@@ -11,22 +11,26 @@ import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
 import IsLoggedIn from "~components/loaders/IsLoggedIn"
-import { config } from "~config"
-import { translation } from "~translate"
-import { checkCookie, fetchData, getDomainInfo, getUserInfo } from "~utils"
+import {
+  checkCookie,
+  fetchData,
+  getDomainInfo,
+  getStats,
+  getUserInfo
+} from "~utils"
 
 const types = ["technologies", "prospects", "emails"]
 
 function IndexPopup() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [selectedKeyword, setSelectedKeyword] = useState<any>("prospects")
-  const [keywordData, setKeywordData] = useState<any>()
+  const [keywordData, setKeywordData] = useState<any>({
+    technologies: null,
+    emails: null,
+    prospects: null
+  })
   const [domainData, setDomainData] = useState()
   const [userData, setUserData] = useState({})
-  const [submitState, setSubmitState] = useState<any>({
-    loading: false,
-    error: undefined
-  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,14 +48,16 @@ function IndexPopup() {
   }, [])
 
   useEffect(() => {
-    selectedKeyword &&
-      fetchData(
-        setSubmitState,
-        setKeywordData,
-        sendToBackground,
-        selectedKeyword
-      )
-  }, [selectedKeyword])
+    const fetch = async () => {
+      const second = await getStats(sendToBackground, "prospects")
+      setKeywordData((prev) => ({ ...prev, prospects: second.length }))
+      const first = await getStats(sendToBackground, "technologies")
+      setKeywordData((prev) => ({ ...prev, technologies: first.length }))
+      const third = await getStats(sendToBackground, "emails")
+      setKeywordData((prev) => ({ ...prev, emails: third.length }))
+    }
+    fetch()
+  }, [])
 
   return (
     <div className="w-[500px] flex-col overflow-y-auto rounded-xl flex items-center justify-center px-3 py-1">
@@ -66,13 +72,10 @@ function IndexPopup() {
               types={types}
               setSelectedKeyword={setSelectedKeyword}
               selectedKeyword={selectedKeyword}
+              keywordData={keywordData}
             />
 
-            <BodySection
-              selectedKeyword={selectedKeyword}
-              keywordData={keywordData}
-              submitState={submitState}
-            />
+            <BodySection selectedKeyword={selectedKeyword} />
           </div>
           <Footer userData={userData} />
         </>
