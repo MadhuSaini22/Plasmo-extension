@@ -37,6 +37,7 @@ export default function EmailList({ item }) {
                 job_title: item.job_title,
                 domain: item.company_website
               }
+
               addToContact(body)
             }}>
             Add to Contacts

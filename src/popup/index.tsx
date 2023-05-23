@@ -21,7 +21,7 @@ function IndexPopup() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [selectedKeyword, setSelectedKeyword] = useState<any>("prospects")
   const [keywordData, setKeywordData] = useState<any>()
-  const [domainData, setDomainData] = useState({})
+  const [domainData, setDomainData] = useState()
   const [userData, setUserData] = useState({})
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
@@ -35,7 +35,7 @@ function IndexPopup() {
       else setIsLoggedIn(false)
       const domainInfo: any = await getDomainInfo()
       if (domainInfo && domainInfo.length > 0) setDomainData(domainInfo[0])
-      else setDomainData({})
+      else setDomainData(null)
       const userInfo = await getUserInfo()
       if (userInfo) setUserData(userInfo)
       else setUserData({})
@@ -71,6 +71,7 @@ function IndexPopup() {
             <BodySection
               selectedKeyword={selectedKeyword}
               keywordData={keywordData}
+              submitState={submitState}
             />
           </div>
           <Footer userData={userData} />

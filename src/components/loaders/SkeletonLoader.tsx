@@ -8,7 +8,7 @@ const SkeletonLoader = ({
 }: any) => {
   if (gridCount) {
     return (
-      <div className="space-y-4 mt-5">
+      <div className="">
         {Array.from(Array(gridCount).keys()).map((item) => {
           return (
             <div key={item} className="w-full ">

@@ -121,12 +121,9 @@ export const fetchData = async (
 
   if (currentData) {
     setKeywordData(currentData)
+    setSubmitState((prev: any) => ({ ...prev, loading: false }))
   } else {
     setKeywordData([])
-    setSubmitState((prev: any) => ({ ...prev, error: true }))
+    setSubmitState((prev: any) => ({ ...prev, error: true, loading: false }))
   }
-
-  setTimeout(() => {
-    setSubmitState((prev: any) => ({ ...prev, loading: false }))
-  }, 200)
 }
