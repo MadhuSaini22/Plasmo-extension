@@ -11,8 +11,8 @@ export default function Footer({ userData }) {
           <img className="h-[40px]" src={user} alt="" />
         </div>
         <div className="h-16 flex flex-col items-start justify-center w-full">
-          <div className="font-bold text-xl">Sharan Veerabathini </div>
-          <div className="text-base">sharan.veerabathini@500apps.com</div>
+          <div className="font-bold text-xl">{userData?.name}</div>
+          <div className="text-base">{userData.email_id}</div>
         </div>
       </div>
     </a>

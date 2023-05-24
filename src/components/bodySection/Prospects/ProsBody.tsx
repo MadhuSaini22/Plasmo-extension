@@ -8,22 +8,25 @@ import { fetchData } from "~utils"
 import ProsHeader from "./ProsHeader"
 import ProsList from "./ProsList"
 
-export default function ProsBody() {
+export default function ProsBody({ domain, token }) {
   const [keywordData, setKeywordData] = useState<any>()
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
     error: undefined
   })
-
   useEffect(() => {
-    fetchData(
-      setSubmitState,
-      setKeywordData,
-      sendToBackground,
-      "prospects",
-      false
-    )
-  }, [])
+    token &&
+      domain &&
+      fetchData(
+        setSubmitState,
+        setKeywordData,
+        sendToBackground,
+        "prospects",
+        false,
+        domain,
+        token
+      )
+  }, [domain, token])
 
   return (
     <div className="w-full mt-2 border-2 border-slate-400 flex flex-col items-center ">

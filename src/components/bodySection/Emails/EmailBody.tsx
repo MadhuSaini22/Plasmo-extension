@@ -8,7 +8,7 @@ import { fetchData } from "~utils"
 import ProsHeader from "../Prospects/ProsHeader"
 import EmailList from "./EmailList"
 
-export default function EmailBody() {
+export default function EmailBody({ domain, token }) {
   const [keywordData, setKeywordData] = useState<any>()
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
@@ -16,7 +16,15 @@ export default function EmailBody() {
   })
 
   useEffect(() => {
-    fetchData(setSubmitState, setKeywordData, sendToBackground, "emails", false)
+    fetchData(
+      setSubmitState,
+      setKeywordData,
+      sendToBackground,
+      "emails",
+      false,
+      domain,
+      token
+    )
   }, [])
 
   return (
@@ -33,7 +41,9 @@ export default function EmailBody() {
         ) : (
           <>
             {keywordData &&
-              keywordData.map((elem: any) => <EmailList item={elem} />)}
+              keywordData.map((elem: any) => (
+                <EmailList item={elem} token={token} />
+              ))}
           </>
         )}
       </div>

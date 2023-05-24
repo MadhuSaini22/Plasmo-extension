@@ -7,7 +7,9 @@ export const checkCookie = () => {
       { url: `${config.homePage}`, name: `${config.cookieName}` },
       function (cookie) {
         if (cookie) {
-          resolve(true)
+          const my_string = decodeURIComponent(cookie.value)
+
+          resolve(JSON.parse(my_string).jwt)
         } else {
           resolve(false)
         }
@@ -26,27 +28,40 @@ const urls = {
 }
 
 // Call the API for the keyword data
-export const fetchKeywordData = async (keyword: any) => {
+export const fetchKeywordData = async (
+  keyword: any,
+  token: any,
+  domain: any
+) => {
   return new Promise((resolve, reject) => {
-    fetch(`${urls[keyword]}`, {
-      method: "GET",
-      headers: {
-        Authorization: `${config.cookie}`
-      }
-    })
-      .then((res) => res.json())
-      .then((data: any) => {
-        resolve(data)
+    const url = replaceString(urls[keyword], domain)
+    url &&
+      token &&
+      fetch(`${url}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .catch((error) => {
-        console.error("Error:", error)
-        resolve(false)
-      })
+        .then((res) => res.json())
+        .then((data: any) => {
+          resolve(data)
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+          resolve(false)
+        })
   })
 }
 
+export function replaceString(string1, string2) {
+  var regex = /salesforce\.com/g
+  var replacedString = string1.replace(regex, string2)
+  return replacedString
+}
+
 // Call the API for the domain data
-export const getDomainInfo = async () => {
+export const getDomainInfo = async (token) => {
   return new Promise((resolve, reject) => {
     getCurrentTabDomainName()
       .then((domainName) => {
@@ -55,7 +70,7 @@ export const getDomainInfo = async () => {
           {
             method: "GET",
             headers: {
-              Authorization: `${config.cookie}`
+              Authorization: `Bearer ${token}`
             }
           }
         )
@@ -75,13 +90,13 @@ export const getDomainInfo = async () => {
 }
 
 // Call the API for the domain data
-export const addToContact = async (body) => {
+export const addToContact = async (body, token) => {
   return new Promise((resolve, reject) => {
     fetch(`${config.addToContact}`, {
       method: "POST",
 
       headers: {
-        Authorization: `${config.cookie}`,
+        Authorization: `Bearer ${token}`,
         "Content-type": "application/json"
       },
       body: JSON.stringify(body)
@@ -97,38 +112,42 @@ export const addToContact = async (body) => {
   })
 }
 
-// Call the API for the domain data
-export const getUserInfo = async () => {
-  return new Promise((resolve, reject) => {
-    fetch(`${config.userEndpoint}`, {
-      method: "GET",
-      headers: {
-        Authorization: `${config.cookie}`
-      }
-    })
-      .then((res) => res.json())
-      .then((data: any) => {
-        resolve(data)
-      })
-      .catch((error) => {
-        console.error("Error:", error)
-        resolve(false)
-      })
-  })
-}
+// // Call the API for the domain data
+// export const getUserInfo = async () => {
+//   return new Promise((resolve, reject) => {
+//     fetch(`${config.userEndpoint}`, {
+//       method: "GET",
+//       headers: {
+//         Authorization: `${config.cookie}`
+//       }
+//     })
+//       .then((res) => res.json())
+//       .then((data: any) => {
+//         resolve(data)
+//       })
+//       .catch((error) => {
+//         console.error("Error:", error)
+//         resolve(false)
+//       })
+//   })
+// }
 
 export const fetchData = async (
   setSubmitState,
   setKeywordData,
   sendToBackground,
   selectedKeyword,
-  flag
+  flag,
+  domain,
+  token
 ) => {
   setSubmitState((prev: any) => ({ ...prev, loading: true }))
-  const currentData: any = await sendToBackground({
-    name: selectedKeyword
-  })
 
+  const currentData = await sendToBackground({
+    name: selectedKeyword,
+    token: token,
+    domain: domain
+  })
   if (currentData) {
     flag
       ? setKeywordData((prev) => ({

@@ -8,7 +8,7 @@ import { fetchData } from "~utils"
 import TechButton from "./TechButton"
 import TechHeader from "./TechHeader"
 
-export default function TechBody() {
+export default function TechBody({ domain, token }) {
   const [keywordData, setKeywordData] = useState<any>()
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
@@ -21,7 +21,9 @@ export default function TechBody() {
       setKeywordData,
       sendToBackground,
       "technologies",
-      false
+      false,
+      domain,
+      token
     )
   }, [])
 

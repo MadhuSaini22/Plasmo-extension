@@ -1,7 +1,7 @@
 import "~base.css"
 import "~style.css"
 
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 
@@ -11,13 +11,7 @@ import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
 import IsLoggedIn from "~components/loaders/IsLoggedIn"
-import {
-  checkCookie,
-  fetchData,
-  getDomainInfo,
-  getStats,
-  getUserInfo
-} from "~utils"
+import { checkCookie, fetchData, getDomainInfo, getStats } from "~utils"
 
 const types = ["technologies", "prospects", "emails"]
 
@@ -29,23 +23,29 @@ function IndexPopup() {
     emails: null,
     prospects: null
   })
-  const [domainData, setDomainData] = useState()
+  const [domainData, setDomainData] = useState<any>()
+  const [token, setToken] = useState<any>()
   const [userData, setUserData] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
       const cookie = await checkCookie()
-      if (cookie == true) setIsLoggedIn(true)
-      else setIsLoggedIn(false)
-      const domainInfo: any = await getDomainInfo()
-      if (domainInfo && domainInfo.length > 0) setDomainData(domainInfo[0])
-      else setDomainData(null)
-      const userInfo = await getUserInfo()
-      if (userInfo) setUserData(userInfo)
-      else setUserData({})
+      if (cookie) {
+        setToken(cookie)
+        setIsLoggedIn(true)
+      } else setIsLoggedIn(false)
+      if (token) {
+        const domainInfo: any = await getDomainInfo(token)
+        if (domainInfo && domainInfo.length > 0) setDomainData(domainInfo[0])
+        else setDomainData({})
+      }
+
+      // const userInfo = await getUserInfo()
+      // if (userInfo) setUserData(userInfo)
+      // else setUserData({})
     }
     fetchData()
-  }, [])
+  }, [token])
 
   useEffect(() => {
     const fetch = async () => {
@@ -57,6 +57,25 @@ function IndexPopup() {
       setKeywordData((prev) => ({ ...prev, emails: third.length }))
     }
     fetch()
+  }, [])
+
+  const [domain, setDomain] = useState<any>()
+
+  useLayoutEffect(() => {
+    chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+      if (tabs && tabs.length > 0) {
+        const tab = tabs[0]
+        const url = new URL(tab.url)
+        const domainName = url.hostname.startsWith("www.")
+          ? url.hostname.substring(4)
+          : url.hostname
+        setDomain(domainName)
+      } else {
+        setDomain(null)
+      }
+    })
+
+    return () => {}
   }, [])
 
   return (
@@ -75,9 +94,13 @@ function IndexPopup() {
               keywordData={keywordData}
             />
 
-            <BodySection selectedKeyword={selectedKeyword} />
+            <BodySection
+              selectedKeyword={selectedKeyword}
+              domain={domain}
+              token={token}
+            />
           </div>
-          <Footer userData={userData} />
+          <Footer userData={domainData} />
         </>
       )}
     </div>

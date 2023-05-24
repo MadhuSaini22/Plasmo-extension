@@ -4,7 +4,7 @@ import React from "react"
 
 import { addToContact } from "~utils"
 
-export default function EmailList({ item }) {
+export default function EmailList({ item, token }) {
   return (
     <div className="flex  w-[451px] h-[47px] mx-4 rounded-lg border-2 border-gray-400 items-center   space-x-3 p-2">
       <div className="flex h-10 w-10 items-center justify-center rounded-lg">
@@ -38,7 +38,7 @@ export default function EmailList({ item }) {
                 domain: item.company_website
               }
 
-              addToContact(body)
+              addToContact(body, token)
             }}>
             Add to Contacts
           </button>
