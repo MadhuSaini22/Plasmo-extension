@@ -22,14 +22,18 @@ export default function ProsList({ item }) {
               {item?.name}
             </div>
             <div className="flex justify-center space-x-1 mt-1">
-              <a href={item?.company_linkedin_url} target="_blank">
+              <a
+                href={`https://www.${item?.company_linkedin_url}`}
+                target="_blank">
                 <img
                   src={linkedin}
                   alt="Linkedin"
                   className="h-[12px] cursor-pointer"
                 />
               </a>
-              <a href={item?.company_twitter_url} target="_blank">
+              <a
+                href={`https://www.${item?.company_twitter_url}`}
+                target="_blank">
                 <img
                   src={twitter}
                   alt="Twitter"
