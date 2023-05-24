@@ -30,78 +30,27 @@ export default function TechBody({ domain, token }) {
   return (
     <div className="">
       <TechHeader />
-      <div className="mt-2 max-h-[228px] overflow-y-auto border-2 border-slate-400 pt-5 pb-9 px-1 grid grid-cols-3 grid-flow-row gap-2">
-        {!submitState.loading ? (
-          <>
-            {keywordData &&
-              keywordData.length > 0 &&
-              keywordData.map((elem) => <TechButton item={elem} />)}
-          </>
-        ) : (
-          <>
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-            <SkeletonLoader
-              boxLoaderHeight="33px"
-              boxLoaderWidth="456px"
-              customClass=""
-              gridCount={1}
-            />
-          </>
-        )}
-      </div>
+
+      {keywordData ? (
+        <>
+          {keywordData.length > 0 ? (
+            <div className=" h-[252px] overflow-y-auto border-2 border-slate-400 pt-5 pb-9 px-1 grid grid-cols-3 grid-flow-row gap-2">
+              {keywordData.map((elem) => (
+                <TechButton item={elem} />
+              ))}
+            </div>
+          ) : (
+            <div className="h-[228px] text-center">No data exists</div>
+          )}
+        </>
+      ) : (
+        <SkeletonLoader
+          boxLoaderHeight="33px"
+          boxLoaderWidth="456px"
+          customClass="space-y-2  h-[252px]"
+          gridCount={4}
+        />
+      )}
     </div>
   )
 }

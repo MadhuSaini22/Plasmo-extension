@@ -11,7 +11,7 @@ import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
 import IsLoggedIn from "~components/loaders/IsLoggedIn"
-import { checkCookie, fetchData, getDomainInfo, getStats } from "~utils"
+import { checkCookie, getDomainInfo, getStats } from "~utils"
 
 const types = ["technologies", "prospects", "emails"]
 
@@ -34,8 +34,8 @@ function IndexPopup() {
         setToken(cookie)
         setIsLoggedIn(true)
       } else setIsLoggedIn(false)
-      if (token) {
-        const domainInfo: any = await getDomainInfo(token)
+      if (token && domain) {
+        const domainInfo: any = await getDomainInfo(token, domain)
         if (domainInfo && domainInfo.length > 0) setDomainData(domainInfo[0])
         else setDomainData({})
       }

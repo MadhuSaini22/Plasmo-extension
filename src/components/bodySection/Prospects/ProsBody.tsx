@@ -14,6 +14,7 @@ export default function ProsBody({ domain, token }) {
     loading: false,
     error: undefined
   })
+
   useEffect(() => {
     token &&
       domain &&
@@ -31,7 +32,7 @@ export default function ProsBody({ domain, token }) {
   return (
     <div className="w-full mt-2 border-2 border-slate-400 flex flex-col items-center ">
       <ProsHeader />
-      <div className="mb-4 max-h-[228px] mt-2 space-y-2 overflow-y-auto">
+      <div className="mb-4 h-[228px] mt-2 space-y-2 overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader
             boxLoaderHeight="44px"
@@ -41,9 +42,15 @@ export default function ProsBody({ domain, token }) {
           />
         ) : (
           <>
-            {keywordData &&
-              keywordData.length > 0 &&
-              keywordData.map((elem) => <ProsList item={elem} />)}
+            {keywordData && keywordData.length > 0 ? (
+              <>
+                {keywordData.map((elem) => (
+                  <ProsList item={elem} />
+                ))}
+              </>
+            ) : (
+              <div>No data exists</div>
+            )}
           </>
         )}
       </div>

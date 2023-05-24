@@ -30,7 +30,7 @@ export default function EmailBody({ domain, token }) {
   return (
     <div className="w-full mt-2 border-2 border-slate-400 flex flex-col items-center ">
       <ProsHeader />
-      <div className="mb-4 max-h-[228px] mt-2 space-y-2 overflow-y-auto">
+      <div className="mb-4 h-[228px] mt-2 space-y-2 overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader
             boxLoaderHeight="44px"
@@ -40,10 +40,15 @@ export default function EmailBody({ domain, token }) {
           />
         ) : (
           <>
-            {keywordData &&
-              keywordData.map((elem: any) => (
-                <EmailList item={elem} token={token} />
-              ))}
+            {keywordData && keywordData.length > 0 ? (
+              <>
+                {keywordData.map((elem) => (
+                  <EmailList item={elem} token={token} />
+                ))}
+              </>
+            ) : (
+              <div>No data exists</div>
+            )}
           </>
         )}
       </div>

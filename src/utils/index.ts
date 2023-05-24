@@ -61,31 +61,27 @@ export function replaceString(string1, string2) {
 }
 
 // Call the API for the domain data
-export const getDomainInfo = async (token) => {
+export const getDomainInfo = async (token, domain) => {
   return new Promise((resolve, reject) => {
-    getCurrentTabDomainName()
-      .then((domainName) => {
-        fetch(
-          `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25${domainName}%25%27`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        )
-          .then((res) => res.json())
-          .then((data: any) => {
-            resolve(data)
-          })
-          .catch((error) => {
-            console.error("Error:", error)
-            resolve(false)
-          })
+    fetch(
+      `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25${domain}%25%27`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+      .then((res) => res.json())
+      .then((data: any) => {
+        resolve(data)
       })
       .catch((error) => {
-        console.error("Error occurred while retrieving current tab:", error)
+        console.error("Error:", error)
+        resolve(false)
       })
+  }).catch((error) => {
+    console.error("Error occurred while retrieving current tab:", error)
   })
 }
 
@@ -172,26 +168,4 @@ export const getStats = async (sendToBackground, selectedKeyword) => {
     console.error("An error occurred:", error)
     return false
   }
-}
-
-export function getCurrentTabDomainName() {
-  return new Promise((resolve, reject) => {
-    chrome.tabs
-      .query({ active: true, currentWindow: true })
-      .then((tabs) => {
-        if (tabs && tabs.length > 0) {
-          const tab = tabs[0]
-          const url = new URL(tab.url)
-          const domainName = url.hostname.startsWith("www.")
-            ? url.hostname.substring(4)
-            : url.hostname
-          resolve(domainName)
-        } else {
-          reject(new Error("Unable to retrieve current tab."))
-        }
-      })
-      .catch((error) => {
-        reject(error)
-      })
-  })
 }

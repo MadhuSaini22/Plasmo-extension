@@ -1,5 +1,3 @@
-import { getCurrentTabDomainName } from "~utils"
-
 export const config = {
   homePage: "https://infinity.500apps.com",
   basePage: "https://infinity.500apps.com/finder.io",
