@@ -29,6 +29,7 @@
     "typescript": "5.0.4"
   },
   "manifest": {
+    "name": "Leadsly Extension",
     "permissions": [
       "tabs",
       "activeTab",
