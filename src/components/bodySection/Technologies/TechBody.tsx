@@ -34,22 +34,29 @@ export default function TechBody({ domain, token }) {
       {keywordData ? (
         <>
           {keywordData.length > 0 ? (
-            <div className=" h-[252px] overflow-y-auto border-2 border-slate-400 pt-5 pb-9 px-1 grid grid-cols-3 grid-flow-row gap-2">
-              {keywordData.map((elem) => (
-                <TechButton item={elem} />
-              ))}
+            <div className=" h-[252px] py-5 px-1 border-2 border-slate-400 ">
+              <div className="overflow-y-auto grid grid-cols-3 grid-flow-row gap-2">
+                {keywordData.map((elem) => (
+                  <TechButton item={elem} />
+                ))}
+              </div>
             </div>
           ) : (
-            <div className="h-[228px] text-center">No data exists</div>
+            <div className="h-[252px] border-2 border-slate-400  text-center">
+              No data exists
+            </div>
           )}
         </>
       ) : (
-        <SkeletonLoader
-          boxLoaderHeight="33px"
-          boxLoaderWidth="456px"
-          customClass="space-y-2  h-[252px]"
-          gridCount={4}
-        />
+        <div className="h-[252px] px-1 border-2 border-slate-400">
+          <SkeletonLoader
+            boxLoaderHeight="33px"
+            boxLoaderWidth="456px"
+            customClass="w-[33px] h-[456px]"
+            parentClass=" pt-2 grid grid-cols-3 grid-flow-row gap-2 "
+            gridCount={12}
+          />
+        </div>
       )}
     </div>
   )

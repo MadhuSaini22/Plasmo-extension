@@ -11,7 +11,6 @@ export default function MenuBar({
 }) {
   return (
     <div className="w-full mt-3 py-2 border-b-2 border-slate-400 items-center justify-between text-lg flex">
-      {/* {types.map((elem, index) => ( */}
       <button
         onClick={() => setSelectedKeyword("technologies")}
         className="capitalize">
@@ -21,8 +20,19 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "technologies" ? "text-blue-500" : "text-black"
             }`}>
-            Technologies (
-            {keywordData.technologies ? keywordData.technologies : 50})
+            Technologies
+            {keywordData.technologies ? (
+              <> ({keywordData.technologies}) </>
+            ) : (
+              <></>
+              // <SkeletonLoader
+              //   boxLoaderHeight="5px"
+              //   boxLoaderWidth="5px"
+              //   customClass="w-5 h-5"
+              //   parentClass="   "
+              //   gridCount={1}
+              // />
+            )}
           </span>
         </div>
       </button>
@@ -35,7 +45,8 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "prospects" ? "text-blue-500" : "text-black"
             }`}>
-            Prospects ({keywordData.prospects ? keywordData.prospects : 50})
+            Prospects
+            {keywordData.prospects ? <>({keywordData.prospects})</> : ""}
           </span>
         </div>
       </button>
@@ -48,7 +59,7 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "emails" ? "text-blue-500" : "text-black"
             }`}>
-            Emails ({keywordData.emails ? keywordData.emails : 50})
+            Emails {keywordData.emails ? <>({keywordData.emails})</> : ""}
           </span>
         </div>
       </button>

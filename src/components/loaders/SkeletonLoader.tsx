@@ -4,11 +4,12 @@ const SkeletonLoader = ({
   boxLoaderHeight,
   boxLoaderWidth,
   customClass,
-  gridCount
+  gridCount,
+  parentClass
 }: any) => {
   if (gridCount) {
     return (
-      <div className={customClass}>
+      <div className={parentClass}>
         {Array.from(Array(gridCount).keys()).map((item) => {
           return (
             <div key={item} className="w-full ">

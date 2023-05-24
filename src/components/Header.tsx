@@ -14,7 +14,9 @@ export default function Header({ domainData }) {
       {domainData ? (
         <>
           {Object.keys(domainData).length == 0 ? (
-            <div className="w-[456px] h-[64]">Unable to fetch domain</div>
+            <div className="w-[456px] h-[64] text-center">
+              Unable to fetch domain
+            </div>
           ) : (
             <>
               <div className="flex h-16 w-20 items-center justify-center rounded-lg border-2 border-gray-400 ">

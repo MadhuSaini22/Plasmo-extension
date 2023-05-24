@@ -32,12 +32,13 @@ export default function ProsBody({ domain, token }) {
   return (
     <div className="w-full mt-2 border-2 border-slate-400 flex flex-col items-center ">
       <ProsHeader />
-      <div className="mb-4 h-[228px] mt-2 space-y-2 overflow-y-auto">
+      <div className="h-[228px] w-[476px] mt-2 space-y-2 overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader
             boxLoaderHeight="44px"
             boxLoaderWidth="456px"
-            customClass="space-y-2"
+            customClass=""
+            parentClass="space-y-2"
             gridCount={4}
           />
         ) : (
@@ -49,7 +50,7 @@ export default function ProsBody({ domain, token }) {
                 ))}
               </>
             ) : (
-              <div>No data exists</div>
+              <div className="text-center">No data exists</div>
             )}
           </>
         )}

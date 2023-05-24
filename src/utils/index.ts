@@ -158,14 +158,37 @@ export const fetchData = async (
   }
 }
 
-export const getStats = async (sendToBackground, selectedKeyword) => {
+export const getStats = async (
+  sendToBackground,
+  selectedKeyword,
+  token,
+  domain
+) => {
   try {
     const currentData: any = await sendToBackground({
-      name: selectedKeyword
+      name: selectedKeyword,
+      token: token,
+      domain: domain
     })
     return currentData
   } catch (error) {
     console.error("An error occurred:", error)
     return false
   }
+}
+
+export function parseJwt(token) {
+  var base64Url = token.split(".")[1]
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/")
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+      })
+      .join("")
+  )
+
+  return JSON.parse(jsonPayload)
 }

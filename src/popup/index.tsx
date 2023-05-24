@@ -11,7 +11,7 @@ import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
 import IsLoggedIn from "~components/loaders/IsLoggedIn"
-import { checkCookie, getDomainInfo, getStats } from "~utils"
+import { checkCookie, getDomainInfo, getStats, parseJwt } from "~utils"
 
 const types = ["technologies", "prospects", "emails"]
 
@@ -25,13 +25,15 @@ function IndexPopup() {
   })
   const [domainData, setDomainData] = useState<any>()
   const [token, setToken] = useState<any>()
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState()
+  const [domain, setDomain] = useState<any>()
 
   useEffect(() => {
     const fetchData = async () => {
       const cookie = await checkCookie()
       if (cookie) {
         setToken(cookie)
+        setUserData(parseJwt(cookie))
         setIsLoggedIn(true)
       } else setIsLoggedIn(false)
       if (token && domain) {
@@ -49,17 +51,25 @@ function IndexPopup() {
 
   useEffect(() => {
     const fetch = async () => {
-      const second = await getStats(sendToBackground, "prospects")
+      const second = await getStats(
+        sendToBackground,
+        "prospects",
+        token,
+        domain
+      )
       setKeywordData((prev) => ({ ...prev, prospects: second.length }))
-      const first = await getStats(sendToBackground, "technologies")
+      const first = await getStats(
+        sendToBackground,
+        "technologies",
+        token,
+        domain
+      )
       setKeywordData((prev) => ({ ...prev, technologies: first.length }))
-      const third = await getStats(sendToBackground, "emails")
+      const third = await getStats(sendToBackground, "emails", token, domain)
       setKeywordData((prev) => ({ ...prev, emails: third.length }))
     }
-    fetch()
-  }, [])
-
-  const [domain, setDomain] = useState<any>()
+    if (token && domain) fetch()
+  }, [token, domain])
 
   useLayoutEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
@@ -100,7 +110,7 @@ function IndexPopup() {
               token={token}
             />
           </div>
-          <Footer userData={domainData} />
+          <Footer userData={userData} />
         </>
       )}
     </div>
