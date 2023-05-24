@@ -34,8 +34,8 @@ export default function TechBody({ domain, token }) {
       {keywordData ? (
         <>
           {keywordData.length > 0 ? (
-            <div className=" h-[252px] py-5 px-1 border-2 border-slate-400 ">
-              <div className="overflow-y-auto grid grid-cols-3 grid-flow-row gap-2">
+            <div className="overflow-y-auto h-[252px] py-5 px-1 border-2 border-slate-400 ">
+              <div className=" grid grid-cols-3 grid-flow-row gap-2">
                 {keywordData.map((elem) => (
                   <TechButton item={elem} />
                 ))}
