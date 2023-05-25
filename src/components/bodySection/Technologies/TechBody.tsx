@@ -34,7 +34,7 @@ export default function TechBody({ domain, token }) {
       {keywordData ? (
         <>
           {keywordData.length > 0 ? (
-            <div className="overflow-y-auto h-[252px] py-5 px-1 border-2 border-slate-400 ">
+            <div className="overflow-y-auto h-[236px] py-5 px-1 border-2 border-slate-400 ">
               <div className=" grid grid-cols-3 grid-flow-row gap-2">
                 {keywordData.map((elem) => (
                   <TechButton item={elem} />
@@ -48,7 +48,7 @@ export default function TechBody({ domain, token }) {
           )}
         </>
       ) : (
-        <div className="h-[252px] px-1 border-2 border-slate-400">
+        <div className="h-[236px] px-1 border-2 border-slate-400">
           <SkeletonLoader
             boxLoaderHeight="33px"
             boxLoaderWidth="456px"

@@ -30,7 +30,7 @@ export default function ProsBody({ domain, token }) {
   }, [domain, token])
 
   return (
-    <div className="w-full mt-2 border-2 border-slate-400 flex flex-col items-center ">
+    <div className="w-full border-2 border-slate-400 flex flex-col items-center ">
       <ProsHeader />
       <div className="h-[228px] w-[476px] mt-2 space-y-2 overflow-y-auto">
         {submitState.loading ? (

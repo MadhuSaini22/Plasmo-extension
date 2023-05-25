@@ -10,12 +10,16 @@ export default function MenuBar({
   keywordData
 }) {
   return (
-    <div className="w-full mt-3 py-2 border-b-2 border-slate-400 items-center justify-between text-lg flex">
+    <div className="w-full py-2 flex items-center text-lg">
       <button
         onClick={() => setSelectedKeyword("technologies")}
-        className="capitalize">
-        <div className="flex items-center space-x-1">
-          <img className="h-[22px]" src={tech} alt="" />
+        className={`capitalize w-full border-b-2 py-3 ${
+          selectedKeyword == "technologies"
+            ? "border-blue-500"
+            : "border-gray-400"
+        }`}>
+        <div className="flex items-center justify-center space-x-1">
+          <img className="h-[20px]" src={tech} alt="" />
           <span
             className={`text-center text-sm ${
               selectedKeyword == "technologies" ? "text-blue-500" : "text-black"
@@ -38,8 +42,10 @@ export default function MenuBar({
       </button>
       <button
         onClick={() => setSelectedKeyword("prospects")}
-        className="capitalize">
-        <div className="flex items-center space-x-1">
+        className={`capitalize w-full border-b-2 py-3 ${
+          selectedKeyword == "prospects" ? "border-blue-500" : "border-gray-400"
+        }`}>
+        <div className="flex items-center justify-center space-x-1">
           <img className="h-[15px]" src={twoPersons} alt="" />
           <span
             className={`text-center text-sm ${
@@ -52,8 +58,10 @@ export default function MenuBar({
       </button>
       <button
         onClick={() => setSelectedKeyword("emails")}
-        className="capitalize">
-        <div className="flex items-center space-x-1">
+        className={`capitalize w-full border-b-2 py-3 ${
+          selectedKeyword == "emails" ? "border-blue-500" : "border-gray-400"
+        }`}>
+        <div className="flex items-center justify-center space-x-1">
           <img className="h-[14px]" src={email} alt="" />
           <span
             className={`text-center text-sm ${
