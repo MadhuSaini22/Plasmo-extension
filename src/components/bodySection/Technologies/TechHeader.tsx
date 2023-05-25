@@ -4,7 +4,7 @@ import React from "react"
 export default function TechHeader() {
   return (
     <div className="flex justify-between">
-      <div className="relative mt-2 rounded-md mb-3 shadow-sm">
+      <div className="relative rounded-md mb-3 shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 flex items-center left-2">
           <MagnifyingGlassIcon className="w-4 h-5 text-black" />
         </div>
@@ -17,7 +17,7 @@ export default function TechHeader() {
           placeholder="Search Technologies"
         />
       </div>
-      <div className="relative mt-2 rounded-md mb-3 shadow-sm">
+      <div className="relative rounded-md mb-3 shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 flex items-center left-2">
           <FunnelIcon className="w-4 h-5 text-black" />
         </div>

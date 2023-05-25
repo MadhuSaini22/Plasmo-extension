@@ -1,4 +1,3 @@
-import { HomeModernIcon, UserGroupIcon } from "@heroicons/react/24/outline"
 import email from "data-base64:~assets/email-grey.svg"
 import linkedin from "data-base64:~assets/linkedin-color.svg"
 import person from "data-base64:~assets/person.svg"

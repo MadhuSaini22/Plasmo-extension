@@ -24,7 +24,7 @@ const urls = {
   prospects:
     "https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25salesforce.com%25%27",
   emails:
-    "https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25salesforce.com%25%27  "
+    "https://finderio.500apps.com/finderdb/v1/domain/salesforce.com?limit=50"
 }
 
 // Call the API for the keyword data
@@ -191,4 +191,12 @@ export function parseJwt(token) {
   )
 
   return JSON.parse(jsonPayload)
+}
+
+export function countURLs(urlString) {
+  // Remove any leading/trailing whitespaces and split the string by commas
+  const urls = urlString.trim().split(",")
+
+  // Return the count of URLs
+  return urls.length
 }
