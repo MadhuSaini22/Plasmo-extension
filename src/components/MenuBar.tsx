@@ -28,7 +28,7 @@ export default function MenuBar({
             {keywordData.technologies ? (
               <> ({keywordData.technologies}) </>
             ) : (
-              <></>
+              " (0) "
               // <SkeletonLoader
               //   boxLoaderHeight="5px"
               //   boxLoaderWidth="5px"
@@ -52,7 +52,7 @@ export default function MenuBar({
               selectedKeyword == "prospects" ? "text-blue-500" : "text-black"
             }`}>
             Prospects
-            {keywordData.prospects ? <>({keywordData.prospects})</> : ""}
+            {keywordData.prospects ? <> ({keywordData.prospects}) </> : " (0) "}
           </span>
         </div>
       </button>
@@ -67,7 +67,8 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "emails" ? "text-blue-500" : "text-black"
             }`}>
-            Emails {keywordData.emails ? <>({keywordData.emails})</> : ""}
+            Emails{" "}
+            {keywordData.emails ? <> ({keywordData.emails}) </> : " (0) "}
           </span>
         </div>
       </button>
