@@ -13,8 +13,8 @@ export default function Footer({ userData }) {
           {Object.keys(userData).length == 0 ? (
             <div className="w-[470px] h-[64px]">Unable to fetch user</div>
           ) : (
-            <a href={config.homePage} target="_blank" className="w-full">
-              <div className="flex w-full rounded-lg items-center justify-start space-x-3 pt-2">
+            <a href={config.redirect} target="_blank" className="w-full">
+              <div className="flex w-full rounded-lg items-center justify-start space-x-3 pt-1">
                 <div className="flex h-16 w-20 items-center justify-center rounded-lg">
                   <img className="h-[40px]" src={user} alt="" />
                 </div>
