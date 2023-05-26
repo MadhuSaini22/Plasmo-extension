@@ -32,7 +32,7 @@ export default function ProsBody({ domain, token }) {
   return (
     <div className="w-full border-2 border-slate-400 flex flex-col items-center ">
       <ProsHeader />
-      <div className="h-[228px] w-[476px] mt-2 space-y-2 overflow-y-auto">
+      <div className="h-[228px] w-[476px] mt-2  overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader
             boxLoaderHeight="44px"
@@ -42,7 +42,7 @@ export default function ProsBody({ domain, token }) {
             gridCount={4}
           />
         ) : (
-          <>
+          <div className="px-3 space-y-2 ">
             {keywordData && keywordData.length > 0 ? (
               <>
                 {keywordData.map((elem) => (
@@ -52,7 +52,7 @@ export default function ProsBody({ domain, token }) {
             ) : (
               <div className="text-center">No data exists</div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

@@ -200,3 +200,39 @@ export function countURLs(urlString) {
   // Return the count of URLs
   return urls.length
 }
+
+export function getNameFromEmail(email) {
+  // Split the email string at the '@' symbol
+  var parts = email.split("@")
+
+  // If the email has the correct format, extract the name
+  if (parts.length === 2) {
+    // Split the username part at the dot '.' to get the name
+    var username = parts[0].split(".")
+
+    // Capitalize the first letter of each name part
+    var name = username.map(function (part) {
+      return part.charAt(0).toUpperCase() + part.slice(1)
+    })
+
+    return name.join(" ")
+  }
+
+  return null
+}
+
+export function getStringBeforeTLD(domain) {
+  // Split the domain name at the dot '.'
+  var parts = domain.split(".")
+
+  // If the domain has at least two parts, extract the string before the last part
+  if (parts.length >= 2) {
+    // Remove the last part from the array
+    parts.pop()
+
+    // Join the remaining parts with a dot '.' and return the result
+    return parts.join(".")
+  }
+
+  return null
+}
