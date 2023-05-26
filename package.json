@@ -1,0 +1,42 @@
+{
+  "name": "plasmo-demo",
+  "displayName": "Plasmo demo",
+  "version": "0.0.1",
+  "description": "A basic Plasmo extension.",
+  "author": "Plasmo Corp. <foss@plasmo.com>",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "@plasmohq/messaging": "^0.3.0",
+    "@plasmohq/storage": "^1.6.0",
+    "plasmo": "0.70.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "3.3.2"
+  },
+  "devDependencies": {
+    "@plasmohq/prettier-plugin-sort-imports": "3.6.4",
+    "@types/chrome": "0.0.235",
+    "@types/node": "18.16.3",
+    "@types/react": "18.2.2",
+    "@types/react-dom": "18.2.3",
+    "postcss": "8.4.23",
+    "prettier": "2.8.8",
+    "typescript": "5.0.4"
+  },
+  "manifest": {
+    "name": "Leadsly Extension",
+    "permissions": [
+      "tabs",
+      "activeTab",
+      "cookies"
+    ],
+    "host_permissions": [
+      "https://*/*"
+    ]
+  }
+}
