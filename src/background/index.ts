@@ -1,3 +1,7 @@
-export {}
+import { config } from "~config"
 
-console.log("bACKGROUND")
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.tabs.create({ url: config.homePage })
+})
+
+export {}

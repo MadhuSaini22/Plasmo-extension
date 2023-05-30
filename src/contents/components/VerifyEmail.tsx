@@ -18,7 +18,9 @@ const VerifyEmail = ({ email }) => {
           left: 20,
           right: 0
         }}
-        onClick={async () => {
+        onClick={async (e) => {
+          e.preventDefault()
+
           setLoading(true)
           const currentData: any = await sendToBackground({
             name: "verify-cookie",
