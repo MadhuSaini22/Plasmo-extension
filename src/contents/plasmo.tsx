@@ -31,6 +31,10 @@ function extractEmailAddresses(text) {
 function addButton(emailNode, email) {
   const div = document.createElement("div")
   div.style.position = "relative"
+  div.style.display = "inline-block"
+  div.style.verticalAlign = "middle"
+  div.style.marginLeft = "6px"
+
   ReactDOM.createRoot(div).render(<VerifyEmail email={email} />)
-  emailNode.parentElement.insertAdjacentElement("afterbegin", div)
+  emailNode.parentElement.insertAdjacentElement("beforeend", div)
 }

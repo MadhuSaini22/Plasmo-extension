@@ -4,18 +4,13 @@ import { sendToBackground } from "@plasmohq/messaging"
 
 const VerifyEmail = ({ email }) => {
   const [loading, setLoading] = useState(false)
-  const [msg, setMsg] = useState("")
+  const [response, setResponse] = useState<any>({})
 
   return (
     <>
       <div
         style={{
-          cursor: "pointer",
-          position: "absolute",
-          top: -20,
-          bottom: 0,
-          left: 20,
-          right: 0
+          cursor: "pointer"
         }}
         onClick={async (e) => {
           e.preventDefault()
@@ -25,16 +20,22 @@ const VerifyEmail = ({ email }) => {
             name: "verify-cookie",
             body: email
           })
-          if (currentData.message) setMsg(currentData.message)
+          setResponse(currentData)
           setLoading(false)
         }}>
         {loading ? (
           <Loader />
         ) : (
           <>
-            {msg ? (
-              <div style={{ fontWeight: "bold", textTransform: "capitalize" }}>
-                {msg}
+            {response.status ? (
+              <div
+                style={{
+                  fontSize: 14,
+                  textTransform: "capitalize",
+                  color:
+                    response.status.toLowerCase() == "success" ? "green" : "red"
+                }}>
+                {response.message}
               </div>
             ) : (
               <SearchLogo />
@@ -82,8 +83,8 @@ function Loader() {
 function SearchLogo() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 191 208"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
