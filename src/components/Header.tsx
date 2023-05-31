@@ -40,7 +40,7 @@ export default function Header({ domainData }) {
                   <div className="flex justify-center items-center space-x-3 mt-1">
                     {domainData && domainData?.company_linkedin_url && (
                       <a
-                        href={`https://www.${domainData?.company_linkedin_url}`}
+                        href={`https://${domainData?.company_linkedin_url}`}
                         target="_blank">
                         <img
                           src={linkedin}
@@ -51,7 +51,7 @@ export default function Header({ domainData }) {
                     )}
                     {domainData && domainData?.company_twitter_url && (
                       <a
-                        href={`https://www.${domainData?.company_twitter_url}`}
+                        href={`https://${domainData?.company_twitter_url}`}
                         target="_blank">
                         <img
                           src={twitter}
@@ -63,7 +63,7 @@ export default function Header({ domainData }) {
 
                     {domainData && domainData?.company_website && (
                       <a
-                        href={`https://www.${domainData?.company_website}`}
+                        href={`https://${domainData?.company_website}`}
                         target="_blank">
                         <img
                           src={globe}

@@ -7,7 +7,7 @@ import twitter from "data-base64:~assets/twitter-color.svg"
 import React from "react"
 
 import { config } from "~config"
-import { maskEmail } from "~utils"
+import { maskEmail, maskPhoneNumber } from "~utils"
 
 export default function ProsList({ item }) {
   let maskedEmail = ""
@@ -76,7 +76,11 @@ export default function ProsList({ item }) {
           <div className="space-x-3 italic text-zinc-500 flex">
             <div className="text-[10px] space-x-2 flex  items-center">
               <img className="h-[8px]" src={telephone} alt="" />
-              <span>+19************</span>
+              <span>
+                {item.phone_numbers[0]?.length > 0
+                  ? maskPhoneNumber(item.phone_numbers[0])
+                  : "--"}
+              </span>
             </div>
           </div>
         </div>

@@ -244,3 +244,8 @@ export function maskEmail(email) {
   }
   return email
 }
+
+export const maskPhoneNumber = (phoneNumber) =>
+  phoneNumber.slice(0, 3) +
+  "*".repeat(phoneNumber.length - 4) +
+  phoneNumber.slice(-4)
