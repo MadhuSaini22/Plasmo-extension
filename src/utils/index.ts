@@ -63,7 +63,7 @@ export function replaceString(string1, string2) {
 export const getDomainInfo = async (token, domain) => {
   return new Promise((resolve, reject) => {
     fetch(
-      `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25${domain}%25%27`,
+      `https://api.eu1.500apps.com/elastic/search?offset=0&where=company_name%20like%20%27%25${domain}%25%27`,
       {
         method: "GET",
         headers: {
