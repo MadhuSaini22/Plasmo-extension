@@ -4,7 +4,7 @@ import React, { useState } from "react"
 
 import SpinnerLoader from "~components/loaders/SpinnerLoader"
 import { config } from "~config"
-import { addToContact, countURLs, getNameFromEmail } from "~utils"
+import { addToContact, countURLs, getNameFromEmail, maskEmail } from "~utils"
 
 export default function EmailList({ item, token }) {
   const [loading, setLoading] = useState(false)
@@ -22,7 +22,9 @@ export default function EmailList({ item, token }) {
           <div className="space-x-3 italic text-zinc-500 flex">
             <div className="text-[10px] space-x-2 flex items-center">
               <img className="h-[8px]" src={email} alt="" />
-              <span className="w-[130px] line-clamp-1">{item?.email}</span>
+              <span className="w-[130px] line-clamp-1">
+                {maskEmail(item?.email || "")}
+              </span>
             </div>
           </div>
         </div>
