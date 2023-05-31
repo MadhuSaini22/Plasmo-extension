@@ -15,7 +15,6 @@ export const getRootContainer = () =>
         const emailAddresses = extractEmailAddresses(textNode.textContent)
         if (emailAddresses) {
           emailAddresses.forEach((email) => {
-            console.log("node:", textNode)
             addButton(textNode, email)
           })
         }

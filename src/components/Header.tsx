@@ -38,51 +38,65 @@ export default function Header({ domainData }) {
                     {name ? name : ""}
                   </div>
                   <div className="flex justify-center items-center space-x-3 mt-1">
-                    <a
-                      href={`https://www.${domainData?.company_linkedin_url}`}
-                      target="_blank">
-                      <img
-                        src={linkedin}
-                        alt="Five cats looking around a field."
-                        className="h-[16px] w-[16px] cursor-pointer"
-                      />
-                    </a>
-                    <a
-                      href={`https://www.${domainData?.company_twitter_url}`}
-                      target="_blank">
-                      <img
-                        src={twitter}
-                        alt="Five cats looking around a field."
-                        className="h-[16px] w-[16px] cursor-pointer"
-                      />
-                    </a>
-                    <a
-                      href={`https://www.${domainData?.company_website}`}
-                      target="_blank">
-                      <img
-                        src={globe}
-                        alt="Five cats looking around a field."
-                        className="h-[16px] w-[16px] cursor-pointer"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="space-x-3 italic text-zinc-500 flex">
-                  <div className="text-[11px] space-x-2 flex">
-                    <img className="h-[18px]" src={group} alt="" />
-                    <span>{domainData?.company_size}</span>
-                  </div>
-                  <div className="text-[11px] space-x-2 flex">
-                    <img className="h-[18px]" src={building} alt="" />
+                    {domainData && domainData?.company_linkedin_url && (
+                      <a
+                        href={`https://www.${domainData?.company_linkedin_url}`}
+                        target="_blank">
+                        <img
+                          src={linkedin}
+                          alt="Five cats looking around a field."
+                          className="h-[16px] w-[16px] cursor-pointer"
+                        />
+                      </a>
+                    )}
+                    {domainData && domainData?.company_twitter_url && (
+                      <a
+                        href={`https://www.${domainData?.company_twitter_url}`}
+                        target="_blank">
+                        <img
+                          src={twitter}
+                          alt="Five cats looking around a field."
+                          className="h-[16px] w-[16px] cursor-pointer"
+                        />
+                      </a>
+                    )}
 
-                    <span>{domainData?.company_industry}</span>
+                    {domainData && domainData?.company_website && (
+                      <a
+                        href={`https://www.${domainData?.company_website}`}
+                        target="_blank">
+                        <img
+                          src={globe}
+                          alt="Five cats looking around a field."
+                          className="h-[16px] w-[16px] cursor-pointer"
+                        />
+                      </a>
+                    )}
                   </div>
                 </div>
                 <div className="space-x-3 italic text-zinc-500 flex">
-                  <div className="text-[11px] space-x-2 flex">
-                    <MapPinIcon className="w-4 h-4 text-black" />
-                    <span>{domainData?.company_location_name}</span>
-                  </div>
+                  {domainData && domainData?.company_size && (
+                    <div className="text-[11px] space-x-2 flex">
+                      <img className="h-[18px]" src={group} alt="" />
+                      <span>{domainData?.company_size}</span>
+                    </div>
+                  )}
+
+                  {domainData && domainData?.company_industry && (
+                    <div className="text-[11px] space-x-2 flex">
+                      <img className="h-[18px]" src={building} alt="" />
+
+                      <span>{domainData?.company_industry}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="space-x-3 italic text-zinc-500 flex">
+                  {domainData && domainData?.company_location_name && (
+                    <div className="text-[11px] space-x-2 flex">
+                      <MapPinIcon className="w-4 h-4 text-black" />
+                      <span>{domainData?.company_location_name}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </>

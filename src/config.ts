@@ -3,10 +3,9 @@ export const config = {
   basePage: "https://infinity.500apps.com/finder.io",
   redirect: "https://finder.io/",
   cookieName: "token",
-  domainEndpoint: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=company_name%20like%20%27%25salesforce.com%25%27`,
+  domainEndpoint: `https://api.eu1.500apps.com/elastic/search?offset=0&where=company_name%20like%20%27%25salesforce.com%25%27`,
   userEndpoint:
-    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
-  emails:
-    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com?limit=50",
+    "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com",
+  emails: "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com",
   addToContact: "https://api.eu1.500apps.com/v2/technographics/contacts"
 }
