@@ -4,7 +4,12 @@ import EmailBody from "./bodySection/Emails/EmailBody"
 import ProsBody from "./bodySection/Prospects/ProsBody"
 import TechBody from "./bodySection/Technologies/TechBody"
 
-export default function BodySection({ selectedKeyword, domain, token }) {
+export default function BodySection({
+  selectedKeyword,
+  domain,
+  token,
+  email_count
+}) {
   return (
     <div>
       {selectedKeyword == "technologies" && (
@@ -14,7 +19,7 @@ export default function BodySection({ selectedKeyword, domain, token }) {
         <ProsBody domain={domain} token={token} />
       )}
       {selectedKeyword == "emails" && (
-        <EmailBody domain={domain} token={token} />
+        <EmailBody domain={domain} token={token} email_count={email_count} />
       )}
     </div>
   )

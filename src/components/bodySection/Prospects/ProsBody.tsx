@@ -31,7 +31,11 @@ export default function ProsBody({ domain, token }) {
 
   return (
     <div className="w-full border-2 border-slate-400 flex flex-col items-center ">
-      <ProsHeader />
+      <ProsHeader
+        email_count={keywordData?.length || 0}
+        website={domain}
+        name={"Prospects"}
+      />
       <div className="h-[228px] w-[476px] mt-2  overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader

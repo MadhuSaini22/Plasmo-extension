@@ -11,7 +11,14 @@ import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
 import IsLoggedIn from "~components/loaders/IsLoggedIn"
-import { checkCookie, getDomainInfo, getStats, parseJwt } from "~utils"
+import {
+  checkCookie,
+  fetchData,
+  fetchKeywordData,
+  getDomainInfo,
+  getStats,
+  parseJwt
+} from "~utils"
 
 const types = ["technologies", "prospects", "emails"]
 
@@ -27,6 +34,7 @@ function IndexPopup() {
   const [token, setToken] = useState<any>()
   const [userData, setUserData] = useState()
   const [domain, setDomain] = useState<any>()
+  const [email_count, setEmail_count] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +56,16 @@ function IndexPopup() {
     }
     fetchData()
   }, [token])
+
+  useEffect(() => {
+    if (domain && token) {
+      fetchKeywordData("emails_count", token, domain).then((data) => {
+        setEmail_count(data?.[0]?.count || 0)
+      })
+    }
+
+    return () => {}
+  }, [token, domain])
 
   useEffect(() => {
     const fetch = async () => {
@@ -102,12 +120,14 @@ function IndexPopup() {
               setSelectedKeyword={setSelectedKeyword}
               selectedKeyword={selectedKeyword}
               keywordData={keywordData}
+              email_count={email_count}
             />
 
             <BodySection
               selectedKeyword={selectedKeyword}
               domain={domain}
               token={token}
+              email_count={email_count}
             />
           </div>
           <Footer userData={userData} />
