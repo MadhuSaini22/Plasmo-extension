@@ -1,17 +1,13 @@
 import { FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import React from "react"
 
-export default function ProsHeader({
-  email_count = 0,
-  website = "",
-  name = ""
-}) {
+export default function ProsHeader({ pros_count, website = "", name = "" }) {
   return (
     <div className="flex w-full px-4 mt-2 space-x-3 items-center justify-between">
       <div className="text-[11px] italic text-center font-bold">
-        {email_count > 0 &&
+        {pros_count > 0 &&
           website &&
-          `We have found ${email_count} ${name} in our database for ${website}`}
+          `We have found ${pros_count} ${name} in our database for ${website}`}
       </div>
       <div className="relative w-[120px] rounded-sm flex items-center shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 flex items-center left-2">

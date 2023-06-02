@@ -29,7 +29,7 @@ export default function EmailBody({ domain, token, email_count }) {
 
   return (
     <div className="w-full border-2 border-slate-400 flex flex-col items-center ">
-      <ProsHeader website={domain} name={"Emails"} email_count={email_count} />
+      <ProsHeader website={domain} name={"Emails"} pros_count={email_count} />
       <div className="h-[228px] w-[476px] mt-2 overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader

@@ -8,7 +8,7 @@ import { fetchData } from "~utils"
 import ProsHeader from "./ProsHeader"
 import ProsList from "./ProsList"
 
-export default function ProsBody({ domain, token }) {
+export default function ProsBody({ domain, token, pros_count }) {
   const [keywordData, setKeywordData] = useState<any>()
   const [submitState, setSubmitState] = useState<any>({
     loading: false,
@@ -31,11 +31,7 @@ export default function ProsBody({ domain, token }) {
 
   return (
     <div className="w-full border-2 border-slate-400 flex flex-col items-center ">
-      <ProsHeader
-        email_count={keywordData?.length || 0}
-        website={domain}
-        name={"Prospects"}
-      />
+      <ProsHeader pros_count={pros_count} website={domain} name={"Prospects"} />
       <div className="h-[228px] w-[476px] mt-2  overflow-y-auto">
         {submitState.loading ? (
           <SkeletonLoader

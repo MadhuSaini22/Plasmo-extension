@@ -34,7 +34,6 @@ function IndexPopup() {
   const [token, setToken] = useState<any>()
   const [userData, setUserData] = useState()
   const [domain, setDomain] = useState<any>()
-  const [email_count, setEmail_count] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,37 +55,29 @@ function IndexPopup() {
     }
     fetchData()
   }, [token])
-
   useEffect(() => {
     if (domain && token) {
       fetchKeywordData("emails_count", token, domain).then((data) => {
-        setEmail_count(data?.[0]?.count || 0)
+        setKeywordData((prev) => ({
+          ...prev,
+          emails: data?.[0]?.count || 0
+        }))
+      })
+      fetchKeywordData("prospect_count", token, domain).then((data) => {
+        setKeywordData((prev) => ({
+          ...prev,
+          prospects: data?.[0]?.count || 0
+        }))
+      })
+      fetchKeywordData("tech_count", token, domain).then((data) => {
+        setKeywordData((prev) => ({
+          ...prev,
+          technologies: data?.[0]?.count || 0
+        }))
       })
     }
 
     return () => {}
-  }, [token, domain])
-
-  useEffect(() => {
-    const fetch = async () => {
-      const second = await getStats(
-        sendToBackground,
-        "prospects",
-        token,
-        domain
-      )
-      setKeywordData((prev) => ({ ...prev, prospects: second.length }))
-      const first = await getStats(
-        sendToBackground,
-        "technologies",
-        token,
-        domain
-      )
-      setKeywordData((prev) => ({ ...prev, technologies: first.length }))
-      const third = await getStats(sendToBackground, "emails", token, domain)
-      setKeywordData((prev) => ({ ...prev, emails: third.length }))
-    }
-    if (token && domain) fetch()
   }, [token, domain])
 
   useLayoutEffect(() => {
@@ -120,14 +111,14 @@ function IndexPopup() {
               setSelectedKeyword={setSelectedKeyword}
               selectedKeyword={selectedKeyword}
               keywordData={keywordData}
-              email_count={email_count}
             />
 
             <BodySection
               selectedKeyword={selectedKeyword}
               domain={domain}
               token={token}
-              email_count={email_count}
+              keywordData={keywordData}
+              // email_count={email_count}
             />
           </div>
           <Footer userData={userData} />

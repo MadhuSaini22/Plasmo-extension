@@ -8,7 +8,7 @@ export default function BodySection({
   selectedKeyword,
   domain,
   token,
-  email_count
+  keywordData
 }) {
   return (
     <div>
@@ -16,10 +16,18 @@ export default function BodySection({
         <TechBody domain={domain} token={token} />
       )}
       {selectedKeyword == "prospects" && (
-        <ProsBody domain={domain} token={token} />
+        <ProsBody
+          domain={domain}
+          token={token}
+          pros_count={keywordData.prospects}
+        />
       )}
       {selectedKeyword == "emails" && (
-        <EmailBody domain={domain} token={token} email_count={email_count} />
+        <EmailBody
+          domain={domain}
+          token={token}
+          email_count={keywordData.emails}
+        />
       )}
     </div>
   )

@@ -7,8 +7,7 @@ export default function MenuBar({
   types,
   setSelectedKeyword,
   selectedKeyword,
-  keywordData,
-  email_count
+  keywordData
 }) {
   return (
     <div className="w-full py-2 flex items-center text-lg">
@@ -68,7 +67,8 @@ export default function MenuBar({
             className={`text-center text-sm ${
               selectedKeyword == "emails" ? "text-blue-500" : "text-black"
             }`}>
-            Emails {email_count ? <> ({email_count}) </> : " (0) "}
+            Emails{" "}
+            {keywordData.emails ? <> ({keywordData.emails}) </> : " (0) "}
           </span>
         </div>
       </button>

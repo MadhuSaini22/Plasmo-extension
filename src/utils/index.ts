@@ -24,8 +24,12 @@ const urls = {
   prospects:
     "https://api.eu1.500apps.com/elastic/search?where=company_website%20like%20%27%25salesforce.com%25%27",
   emails: "https://finderio.500apps.com/finderdb/v1/domain/salesforce.com",
+  prospect_count:
+    "https://api.ap1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27",
   emails_count:
-    "https://api.eu1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27"
+    "https://api.ap1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27",
+  tech_count:
+    "https://api.eu1.500apps.com/elastic/count/finder?where=domain%20like%20%27%25salesforce.com%25%27"
 }
 
 // Call the API for the keyword data
