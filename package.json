@@ -5,7 +5,7 @@
   "description": "A basic Plasmo extension.",
   "author": "Plasmo Corp. <foss@plasmo.com>",
   "scripts": {
-    "dev": "plasmo dev",
+    "dev": "concurrently --names \"vite,tailwindcss\" \"plasmo dev\" \"npx tailwindcss -i ./src/style.css -o ./src/output.css --watch\"",
     "build": "plasmo build",
     "package": "plasmo package"
   },
@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.0.18",
     "@plasmohq/messaging": "^0.3.0",
     "@plasmohq/storage": "^1.6.0",
+    "concurrently": "^8.1.0",
     "lightningcss-darwin-x64": "^1.20.0",
     "plasmo": "0.70.1",
     "react": "18.2.0",
@@ -25,6 +26,7 @@
     "@types/node": "18.16.3",
     "@types/react": "18.2.2",
     "@types/react-dom": "18.2.3",
+    "autoprefixer": "^10.4.14",
     "postcss": "8.4.23",
     "prettier": "2.8.8",
     "typescript": "5.0.4"
@@ -42,7 +44,7 @@
     "web_accessible_resources": [
       {
         "resources": [
-          ""
+          "src/output.css"
         ],
         "matches": [
           "<all_urls>"
