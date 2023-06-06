@@ -1,9 +1,6 @@
-import "~base.css"
 import "~style.css"
 
 import { useEffect, useLayoutEffect, useState } from "react"
-
-import { sendToBackground } from "@plasmohq/messaging"
 
 import BodySection from "~components/BodySection"
 import Footer from "~components/Footer"

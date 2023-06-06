@@ -9,7 +9,7 @@ export default function BodySection({
   domain,
   token,
   keywordData
-}) {
+}: any) {
   return (
     <div>
       {selectedKeyword == "technologies" && (

@@ -8,7 +8,7 @@ export default function MenuBar({
   setSelectedKeyword,
   selectedKeyword,
   keywordData
-}) {
+}: any) {
   return (
     <div className="w-full py-2 flex items-center text-lg">
       <button
