@@ -7,5 +7,8 @@ export const config = {
   userEndpoint:
     "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com",
   emails: "https://finderio.500apps.com/finderdb/v1/domain/tailwindcss.com",
-  addToContact: "https://api.eu1.500apps.com/v2/technographics/contacts"
+  addToContact: "https://api.eu1.500apps.com/v2/technographics/contacts",
+  linkedin_regex: new RegExp(
+    "^https://www.linkedin.com/[a-zA-Z]{2}/([^-/s]+)-([^-/s]+)-([^-/s]+)(/)$"
+  )
 }
