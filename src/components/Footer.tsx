@@ -5,7 +5,7 @@ import { config } from "~config"
 
 import SkeletonLoader from "./loaders/SkeletonLoader"
 
-export default function Footer({ userData }) {
+export default function Footer({ userData }: any) {
   return (
     <>
       {userData ? (

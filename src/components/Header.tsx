@@ -10,7 +10,7 @@ import { getStringBeforeTLD } from "~utils"
 
 import SkeletonLoader from "./loaders/SkeletonLoader"
 
-export default function Header({ domainData }) {
+export default function Header({ domainData }: any) {
   let name
   if (domainData && domainData?.company_website) {
     name = getStringBeforeTLD(domainData?.company_website)
