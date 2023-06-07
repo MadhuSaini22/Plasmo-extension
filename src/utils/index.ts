@@ -5,7 +5,7 @@ export const checkCookie = () => {
   return new Promise((resolve, reject) => {
     chrome.cookies.get(
       { url: `${config.homePage}`, name: `${config.cookieName}` },
-      function (cookie) {
+      function(cookie) {
         if (cookie) {
           const my_string = decodeURIComponent(cookie.value)
 
@@ -152,9 +152,9 @@ export const fetchData = async (
   if (currentData) {
     flag
       ? setKeywordData((prev) => ({
-          ...prev,
-          [selectedKeyword]: currentData.length
-        }))
+        ...prev,
+        [selectedKeyword]: currentData.length
+      }))
       : setKeywordData(currentData)
     setSubmitState((prev: any) => ({ ...prev, loading: false }))
   } else {
@@ -189,7 +189,7 @@ export function parseJwt(token) {
     window
       .atob(base64)
       .split("")
-      .map(function (c) {
+      .map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
       })
       .join("")
@@ -216,7 +216,7 @@ export function getNameFromEmail(email) {
     var username = parts[0].split(".")
 
     // Capitalize the first letter of each name part
-    var name = username.map(function (part) {
+    var name = username.map(function(part) {
       return part.charAt(0).toUpperCase() + part.slice(1)
     })
 
@@ -251,7 +251,27 @@ export function maskEmail(email) {
   return email
 }
 
-export const maskPhoneNumber = (phoneNumber) =>
-  phoneNumber.slice(0, 3) +
+export const maskPhoneNumber = (phoneNumber) => {
+  return phoneNumber.slice(0, 3) +
+    phoneNumber.slice(0, 3) +
+    "*".repeat(phoneNumber.length - 4) +
+    phoneNumber.slice(-4)
   "*".repeat(phoneNumber.length - 4) +
-  phoneNumber.slice(-4)
+    phoneNumber.slice(-4)
+}
+
+export const getData = (url: string, token: string) => {
+  return new Promise((resolve) => {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZpYmFwaWMxNzhAcmF0ZWRhbmUuY29tIiwidGVuYW50X2lkIjoxNzczNzEsInVzZXJfaWQiOjIwNzEzMiwic3Vic2NyaWJlZCI6Im5vIiwiZXhwIjoiMTY4NjkwODMwNiIsImVudiI6ImFwMSJ9.IUtffKdXDpvjv-6qn6Z1FvPcwbKE7H0zYWISkiuJrms`
+      }
+    }).then(res => res.json()).then(data => {
+      console.log({ data })
+      resolve(data)
+    }).catch(err => {
+      console.log(err)
+    })
+  })
+}

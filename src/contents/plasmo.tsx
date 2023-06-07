@@ -63,9 +63,10 @@ function searchButton() {
   elem.style.marginLeft = "15px"
   elem.style.cursor = "pointer"
   let modalElem = document.createElement("div")
+  modalElem.classList.add("hidden")
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:absolute;right:100px;top:100px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
+  modalElem.style = `position:fixed;right:100px;top:100px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
