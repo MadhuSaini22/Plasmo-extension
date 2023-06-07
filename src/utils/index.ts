@@ -265,7 +265,7 @@ export const getData = (url: string, token: string) => {
     fetch(url, {
       method: "GET",
       headers: {
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZpYmFwaWMxNzhAcmF0ZWRhbmUuY29tIiwidGVuYW50X2lkIjoxNzczNzEsInVzZXJfaWQiOjIwNzEzMiwic3Vic2NyaWJlZCI6Im5vIiwiZXhwIjoiMTY4NjkwODMwNiIsImVudiI6ImFwMSJ9.IUtffKdXDpvjv-6qn6Z1FvPcwbKE7H0zYWISkiuJrms`
+        Authorization: `Bearer ${token}`
       }
     }).then(res => res.json()).then(data => {
       console.log({ data })

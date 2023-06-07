@@ -15,7 +15,7 @@ const ModalElem: React.FC<{}> = () => {
   const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
-    chrome.runtime.sendMessage({ type: "get_token", url: 'https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25linkedin.com%2Fin%2Fsumit-jain-sumit-rinchan-7453b316%25%27' }, (res) => {
+    chrome.runtime.sendMessage({ type: "get_token", url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href}%25%27` }, (res) => {
       setUser(res[0])
       console.log(res)
     })
