@@ -1,3 +1,4 @@
+import { XMarkIcon } from "@heroicons/react/24/outline"
 import email from "data-base64:~assets/email-grey.svg"
 import linkedin from "data-base64:~assets/linkedin-color.svg"
 import person from "data-base64:~assets/person.svg"
@@ -11,22 +12,26 @@ import { translation } from "~translate"
 import { config } from "../../config"
 
 const ModalElem: React.FC<{}> = () => {
+  function closeHandler() {
+    if (document.querySelector("#modal-elem")) {
+      document.querySelector("#modal-elem").classList.toggle("hidden")
+    }
+  }
   return (
     <div id="rendered_modal" className="border border-gray-700 gap-y-4 flex flex-col rounded-lg w-[400px] h-[350px]">
-      <div className="flex gap-x-4">
+      <div className="flex gap-x-4 justify-between">
         <div className="w-12 h-12">
           <img className="object-cover pt-.5" src={SearchLogo} />
         </div>
         <div style={{ fontSize: "18px" }}>{translation.Finder_io}</div>
+        <button>
+          <XMarkIcon className="w-12 h-12" onClick={() => closeHandler()} />
+        </button>
       </div>
       <div className="rounded-md p-4" style={{ border: "1px solid black", borderRadius: "10px" }}>
         <div className="flex gap-x-6">
-          <div className="w-24 h-24">
-            <img
-              className="object-cover"
-              src="#"
-              alt="linkedin"
-            />
+          <div className="w-24 h-24 ">
+            <img className="object-cover" src="#" alt="linkedin" />
           </div>
           <div className="flex flex-col">
             <div className="text-lg">LinkedIn</div>

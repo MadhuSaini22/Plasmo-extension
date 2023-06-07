@@ -10,5 +10,6 @@ export const config = {
   addToContact: "https://api.eu1.500apps.com/v2/technographics/contacts",
   linkedin_regex: new RegExp(
     "^https://www.linkedin.com/[a-zA-Z]{2}/([^-/s]+)-([^-/s]+)-([^-/s]+)(/)$"
-  )
+  ),
+  apiEndpoint: 'https://api.eu1.500apps.com/elastic/search'
 }

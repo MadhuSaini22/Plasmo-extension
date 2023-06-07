@@ -8,14 +8,7 @@ import Header from "~components/Header"
 import MenuBar from "~components/MenuBar"
 import SearchBar from "~components/SearchBar"
 import IsLoggedIn from "~components/loaders/IsLoggedIn"
-import {
-  checkCookie,
-  fetchData,
-  fetchKeywordData,
-  getDomainInfo,
-  getStats,
-  parseJwt
-} from "~utils"
+import { checkCookie, fetchData, fetchKeywordData, getDomainInfo, getStats, parseJwt } from "~utils"
 
 const types = ["technologies", "prospects", "emails"]
 
@@ -49,6 +42,7 @@ function IndexPopup() {
       // const userInfo = await getUserInfo()
       // if (userInfo) setUserData(userInfo)
       // else setUserData({})
+      console.log("check", token)
     }
     fetchData()
   }, [token])
@@ -82,9 +76,7 @@ function IndexPopup() {
       if (tabs && tabs.length > 0) {
         const tab = tabs[0]
         const url = new URL(tab.url)
-        const domainName = url.hostname.startsWith("www.")
-          ? url.hostname.substring(4)
-          : url.hostname
+        const domainName = url.hostname.startsWith("www.") ? url.hostname.substring(4) : url.hostname
         setDomain(domainName)
       } else {
         setDomain(null)

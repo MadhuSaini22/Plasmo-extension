@@ -39,11 +39,12 @@ function addButton(emailNode, email) {
   div.style.verticalAlign = "middle"
   div.style.marginLeft = "6px"
 
+
   ReactDOM.createRoot(div).render(<VerifyEmail email={email} />)
   emailNode.parentElement.insertAdjacentElement("beforeend", div)
 }
 
-function searchButton() {
+async function searchButton() {
   const elem = document.createElement("div")
   elem.innerHTML = `<svg
   width="20"
@@ -61,11 +62,13 @@ function searchButton() {
   />
 </svg>`
   elem.style.marginLeft = "15px"
+  elem.style.marginTop = "6px"
   elem.style.cursor = "pointer"
   let modalElem = document.createElement("div")
+  modalElem.classList.add("hidden");
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:absolute;right:100px;top:100px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
+  modalElem.style = `position:fixed;right:100px;top:100px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
@@ -73,6 +76,11 @@ function searchButton() {
   document.body.prepend(modalElem)
   ReactDOM.createRoot(modalElem).render(<ModalElem />)
   elem.addEventListener("click", () => {
-    document.querySelector("#modal-elem") && document.querySelector("#modal-elem").classList.toggle("hidden")
+    if(document.querySelector("#modal-elem")) {
+      document.querySelector("#modal-elem").classList.toggle("hidden")
+    }
+  })
+  chrome.runtime.sendMessage({type:'get_token'}, (res) => {
+    console.log(res)
   })
 }
