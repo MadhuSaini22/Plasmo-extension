@@ -1,18 +1,20 @@
-import { checkCookie, getData, parseJwt } from "~utils"
+import { config } from "~config"
+import { getData } from "~utils"
+import { checkCookie } from "~utils"
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.tabs.create({ url: config.homePage })
 })
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-  if (req.type === "get_token") {
-    checkCookie().then((res: string) => {
-      sendResponse(res)
-      getData(res).then((res: any) => {
+  if (req.type == 'get_token') {
+    checkCookie().then((token: string) => {
+      console.log({ token })
+      getData(req.url, token).then(res => {
         console.log(res)
+        sendResponse(res)
       })
     })
   }
 })
 
-export {}
