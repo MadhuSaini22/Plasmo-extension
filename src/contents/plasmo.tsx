@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client"
 import { config } from "../config"
 import ModalElem from "./components/Modal"
 import VerifyEmail from "./components/VerifyEmail"
+let elem: any
 
 export const getRootContainer = () =>
   new Promise(() => {
@@ -20,8 +21,7 @@ export const getRootContainer = () =>
           })
         }
       }
-
-      if (config?.linkedin_regex.test(window.location.href) || true) {
+      if (config?.linkedin_regex.test(window.location.href)) {
         searchButton()
       }
     }, 137)
@@ -43,8 +43,9 @@ function addButton(emailNode, email) {
   emailNode.parentElement.insertAdjacentElement("beforeend", div)
 }
 
-function searchButton() {
-  const elem = document.createElement("div")
+async function searchButton() {
+  elem = document.createElement("div")
+  elem.id = 'search-button'
   elem.innerHTML = `<svg
   width="20"
   height="20"
@@ -61,12 +62,13 @@ function searchButton() {
   />
 </svg>`
   elem.style.marginLeft = "15px"
+  elem.style.marginTop = "6px"
   elem.style.cursor = "pointer"
   let modalElem = document.createElement("div")
   modalElem.classList.add("hidden")
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:fixed;right:100px;top:100px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
+  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
@@ -74,6 +76,8 @@ function searchButton() {
   document.body.prepend(modalElem)
   ReactDOM.createRoot(modalElem).render(<ModalElem />)
   elem.addEventListener("click", () => {
-    document.querySelector("#modal-elem") && document.querySelector("#modal-elem").classList.toggle("hidden")
+    if (document.querySelector("#modal-elem")) {
+      document.querySelector("#modal-elem").classList.toggle("hidden")
+    }
   })
 }

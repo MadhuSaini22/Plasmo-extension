@@ -8,7 +8,7 @@ export const linkedin_scrapper = {
       const jobExperience = element.querySelector(".t-normal.t-black--light [aria-hidden=true]")?.innerText || ""
       const jobLocation =
         element.querySelector(".t-normal.t-black--light:last-child [aria-hidden=true]")?.innerText || ""
-      const skills = Array.from(element.querySelectorAll("li.pvs-list__item--with-top-padding")).map(
+      const skills = Array.from(element.querySelectorAll("li.pvs-list__item--with-top-padding"))?.map(
         (e) => e.querySelector("[aria-hidden=true]").innerText
       )
       return {
@@ -20,8 +20,8 @@ export const linkedin_scrapper = {
       }
     }
     const entities = Array.from(document.querySelectorAll("#experience + * + * .pvs-entity") || [])
-    const experience = entities.map((el) => scrapeExperience(el))
-    return experience
+    const experience = entities?.map((el) => scrapeExperience(el))
+    return experience ?? []
   },
   eduction: () => {
     const scrapeEducation = (element) => {
@@ -34,9 +34,9 @@ export const linkedin_scrapper = {
         courseDuration
       }
     }
-    const entities = document.querySelectorAll("#education + * + * .pvs-entity")
-    const education = entities.map((el) => scrapeEducation(el))
-    return education
+    const entities = Array.from(document.querySelectorAll("#education + * + * .pvs-entity"))
+    const education = entities?.map((el) => scrapeEducation(el))
+    return education ?? []
   },
   skills: () => {
     const skills = []
@@ -53,14 +53,14 @@ export const linkedin_scrapper = {
       groups: [],
       schools: []
     }
-    const interests = document.querySelectorAll("#interests + * + * [role=tabpanel]")
+    const interests = Array.from(document.querySelectorAll("#interests + * + * [role=tabpanel]"))
     interests.forEach((item, index) => {
       item.querySelectorAll("li.artdeco-list__item").forEach((el) => {
-        const name = el.querySelector("span[aria-hidden=true]")?.innerText || ""
-        output[Object.keys(output)[index]].push(name)
+        const name = el.querySelector("span[aria-hidden=true]")?.innerText ?? ""
+        output[Object.keys(output)[index]]?.push(name)
       })
     })
-    return output
+    return output ?? []
   },
   bio: async () => {
     const code = [...document.querySelectorAll("code")].find((a) => {
@@ -96,18 +96,19 @@ function sleep(ms) {
 }
 
 // // use
-// const data = {}
-// async function asyncForEach(array, callback) {
-//   for (let index = 0; index < array.length; index++) {
-//     await callback(array[index], index, array)
-//   }
-// }
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
 
-// async function scrapeData() {
-//   await asyncForEach(Object.entries(linkedin_scrapper), async ([key, value]) => {
-//     data[key] = await value()
-//   })
-// }
-
-// // Call the scrapeData function
-// scrapeData()
+export function scrapeData() {
+  const data = {}
+  return new Promise(async (resolve) => {
+    const value = await asyncForEach(Object.entries(linkedin_scrapper), async ([key, value]) => {
+      data[key] = await value()
+    })
+    console.log({scrapedData: data})
+    resolve(data)
+  })
+}

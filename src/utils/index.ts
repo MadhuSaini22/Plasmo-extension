@@ -3,41 +3,28 @@ import { config } from "~config"
 // Check if cookie named "token" exists on home website
 export const checkCookie = () => {
   return new Promise((resolve, reject) => {
-    chrome.cookies.get(
-      { url: `${config.homePage}`, name: `${config.cookieName}` },
-      function(cookie) {
-        if (cookie) {
-          const my_string = decodeURIComponent(cookie.value)
-
-          resolve(JSON.parse(my_string).jwt)
-        } else {
-          resolve(false)
-        }
+    chrome.cookies.get({ url: `${config.homePage}`, name: `${config.cookieName}` }, function (cookie) {
+      if (cookie) {
+        const my_string = decodeURIComponent(cookie.value)
+        resolve(JSON.parse(my_string).jwt)
+      } else {
+        resolve(false)
       }
-    )
+    })
   })
 }
 
 const urls = {
-  technologies:
-    "https://api.eu1.500apps.com/technographics/domain/salesforce.com",
-  prospects:
-    "https://api.eu1.500apps.com/elastic/search?where=company_website%20like%20%27%25salesforce.com%25%27",
+  technologies: "https://api.eu1.500apps.com/technographics/domain/salesforce.com",
+  prospects: "https://api.eu1.500apps.com/elastic/search?where=company_website%20like%20%27%25salesforce.com%25%27",
   emails: "https://finderio.500apps.com/finderdb/v1/domain/salesforce.com",
-  prospect_count:
-    "https://api.ap1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27",
-  emails_count:
-    "https://api.ap1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27",
-  tech_count:
-    "https://api.eu1.500apps.com/elastic/count/finder?where=domain%20like%20%27%25salesforce.com%25%27"
+  prospect_count: "https://api.ap1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27",
+  emails_count: "https://api.ap1.500apps.com/elastic/count?where=company_website%20like%20%27%25salesforce.com%25%27",
+  tech_count: "https://api.eu1.500apps.com/elastic/count/finder?where=domain%20like%20%27%25salesforce.com%25%27"
 }
 
 // Call the API for the keyword data
-export const fetchKeywordData = async (
-  keyword: any,
-  token: any,
-  domain: any
-) => {
+export const fetchKeywordData = async (keyword: any, token: any, domain: any) => {
   return new Promise((resolve, reject) => {
     const url = replaceString(urls[keyword], domain)
     url &&
@@ -68,15 +55,12 @@ export function replaceString(string1, string2) {
 // Call the API for the domain data
 export const getDomainInfo = async (token, domain) => {
   return new Promise((resolve, reject) => {
-    fetch(
-      `https://api.eu1.500apps.com/elastic/search?where=company_website%20like%20%27%25${domain}%25%27`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+    fetch(`https://api.eu1.500apps.com/elastic/search?where=company_website%20like%20%27%25${domain}%25%27`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-    )
+    })
       .then((res) => res.json())
       .then((data: any) => {
         resolve(data)
@@ -163,12 +147,7 @@ export const fetchData = async (
   }
 }
 
-export const getStats = async (
-  sendToBackground,
-  selectedKeyword,
-  token,
-  domain
-) => {
+export const getStats = async (sendToBackground, selectedKeyword, token, domain) => {
   try {
     const currentData: any = await sendToBackground({
       name: selectedKeyword,
@@ -255,8 +234,6 @@ export const maskPhoneNumber = (phoneNumber) => {
   return phoneNumber.slice(0, 3) +
     phoneNumber.slice(0, 3) +
     "*".repeat(phoneNumber.length - 4) +
-    phoneNumber.slice(-4)
-  "*".repeat(phoneNumber.length - 4) +
     phoneNumber.slice(-4)
 }
 
