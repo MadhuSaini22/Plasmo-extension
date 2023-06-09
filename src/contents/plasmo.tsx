@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client"
 import { config } from "../config"
 import ModalElem from "./components/Modal"
 import VerifyEmail from "./components/VerifyEmail"
+let elem: any
 
 export const getRootContainer = () =>
   new Promise(() => {
@@ -20,8 +21,7 @@ export const getRootContainer = () =>
           })
         }
       }
-
-      if (config?.linkedin_regex.test(window.location.href) || true) {
+      if (config?.linkedin_regex.test(window.location.href)) {
         searchButton()
       }
     }, 137)
@@ -39,13 +39,13 @@ function addButton(emailNode, email) {
   div.style.verticalAlign = "middle"
   div.style.marginLeft = "6px"
 
-
   ReactDOM.createRoot(div).render(<VerifyEmail email={email} />)
   emailNode.parentElement.insertAdjacentElement("beforeend", div)
 }
 
 async function searchButton() {
-  const elem = document.createElement("div")
+  elem = document.createElement("div")
+  elem.id = 'search-button'
   elem.innerHTML = `<svg
   width="20"
   height="20"
@@ -68,7 +68,7 @@ async function searchButton() {
   modalElem.classList.add("hidden")
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:fixed;right:100px;top:100px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
+  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
@@ -76,11 +76,8 @@ async function searchButton() {
   document.body.prepend(modalElem)
   ReactDOM.createRoot(modalElem).render(<ModalElem />)
   elem.addEventListener("click", () => {
-    if(document.querySelector("#modal-elem")) {
+    if (document.querySelector("#modal-elem")) {
       document.querySelector("#modal-elem").classList.toggle("hidden")
     }
-  })
-  chrome.runtime.sendMessage({type:'get_token'}, (res) => {
-    console.log(res)
   })
 }
