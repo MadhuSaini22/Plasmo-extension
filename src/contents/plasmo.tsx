@@ -26,11 +26,10 @@ export const getRootContainer = () => {
         if (config?.linkedin_regex.test(window.location.href)) {
           if (!document.querySelector(`#${config.search_btn_id}`)) {
             searchButton()
-            observer.disconnect()
           }
         }
       })
-      observer.observe(document.body, { subtree: true, attributes: true, childList: true })
+      observer.observe(document.body, { subtree: true, attributes: false, childList: true })
     }, 137)
   })
 }
@@ -76,7 +75,7 @@ async function searchButton() {
   modalElem.classList.add("hidden")
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
+  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999;animation:slide 1s;@keyframes slide { right:}`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
