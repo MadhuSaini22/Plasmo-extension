@@ -6,10 +6,10 @@ import SearchLogo from "data-base64:~assets/searchlogo.svg"
 import suitcase from "data-base64:~assets/suitcase.svg"
 import telephone from "data-base64:~assets/telephone.svg"
 import twitter from "data-base64:~assets/twitter-color.svg"
+import userImg from "data-base64:~assets/user.svg"
 import { useEffect, useState } from "react"
 
 import SkeletonLoader from "~components/loaders/SkeletonLoader"
-import SpinnerLoader from "~components/loaders/SpinnerLoader"
 import { scrapeData } from "~linkedin-scrapper"
 import { translation } from "~translate"
 import { parseJwt } from "~utils"
@@ -37,7 +37,7 @@ const ModalElem: React.FC<{}> = () => {
         )
       }
       const scrapedData = await scrapeData()
-      console.log({scrapedData})
+      console.log({ scrapedData })
     })
   }, [])
 
@@ -210,7 +210,8 @@ const ModalElem: React.FC<{}> = () => {
         <></>
       )}
       <div className="rounded-md p-2">
-        <div>
+        <div className="flex gap-x-3">
+          <img className="h-[25px]" src={userImg} alt="" />
           {loading ? (
             <SkeletonLoader parentClass={"mt-1"} gridCount={1} boxLoaderHeight={"14px"} boxLoaderWidth={"100px"} />
           ) : (
