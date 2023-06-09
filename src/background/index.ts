@@ -1,3 +1,4 @@
+import { config } from "~config"
 import { getData } from "~utils"
 import { checkCookie } from "~utils"
 
