@@ -747,6 +747,18 @@ video {
   height: 200px;
 }
 
+.h-\[35px\]{
+  height: 35px;
+}
+
+.h-\[325px\]{
+  height: 325px;
+}
+
+.h-\[25px\]{
+  height: 25px;
+}
+
 .max-h-\[30px\]{
   max-height: 30px;
 }

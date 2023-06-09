@@ -69,16 +69,16 @@ export const linkedin_scrapper = {
     })
     const data = JSON.parse(code.innerText)
     const { firstName, lastName, headline, publicIdentifier } = data.included[0]
-    document.querySelector(".pv-text-details__separator > a").click()
-    await sleep(2000)
-    const email = document.querySelector("[href^=mailto]")?.href?.replace("mailto:", "")
-    document.querySelector("[aria-label=Dismiss]").click()
+    // document.querySelector(".pv-text-details__separator > a").click()
+    // await sleep(2000)
+    // const email = document.querySelector("[href^=mailto]")?.href?.replace("mailto:", "")
+    // document.querySelector("[aria-label=Dismiss]").click()
     return {
       firstName,
       lastName,
       headline,
       publicIdentifier: "https://linkedin.com/in/" + publicIdentifier,
-      email
+      // email
     }
   }
 }
