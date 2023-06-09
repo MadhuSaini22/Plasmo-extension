@@ -9,9 +9,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
   if (req.type == 'get_token') {
     checkCookie().then((cookie: string) => {
-      console.log({ cookie })
       getData(req.url, cookie).then(res => {
-        console.log(res)
         sendResponse({data:res, cookie})
       })
     })

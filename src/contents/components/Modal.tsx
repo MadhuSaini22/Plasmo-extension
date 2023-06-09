@@ -6,10 +6,10 @@ import SearchLogo from "data-base64:~assets/searchlogo.svg"
 import suitcase from "data-base64:~assets/suitcase.svg"
 import telephone from "data-base64:~assets/telephone.svg"
 import twitter from "data-base64:~assets/twitter-color.svg"
+import userImg from "data-base64:~assets/user.svg"
 import { useEffect, useState } from "react"
 
 import SkeletonLoader from "~components/loaders/SkeletonLoader"
-import SpinnerLoader from "~components/loaders/SpinnerLoader"
 import { scrapeData } from "~linkedin-scrapper"
 import { translation } from "~translate"
 import { parseJwt } from "~utils"
@@ -20,25 +20,25 @@ const ModalElem: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    document.querySelector("#search-button").addEventListener("click", async () => {
-      if (document.querySelector("#modal-elem")) {
-        chrome.runtime.sendMessage(
-          {
-            type: "get_token",
-            url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
-              .replace("https://www.", "")
-              .slice(0, -1)}%25%27`
-          },
-          (res) => {
-            setUser(parseJwt(res?.cookie))
-            setProfile(res?.data?.[0])
-            setLoading(false)
-          }
-        )
-      }
-      const scrapedData = await scrapeData()
-      console.log({scrapedData})
-    })
+      document.querySelector("#search-button").addEventListener("click", async () => {
+        if (document.querySelector("#modal-elem")) {
+          chrome.runtime.sendMessage(
+            {
+              type: "get_token",
+              url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
+                .replace("https://www.", "")
+                .slice(0, -1)}%25%27`
+            },
+            (res) => {
+              setUser(parseJwt(res?.cookie))
+              setProfile(res?.data?.[0])
+              setLoading(false)
+            }
+          )
+        }
+        const scrapedData = await scrapeData()
+        console.log({ scrapedData })
+      })
   }, [])
 
   function closeHandler() {
@@ -210,7 +210,8 @@ const ModalElem: React.FC<{}> = () => {
         <></>
       )}
       <div className="rounded-md p-2">
-        <div>
+        <div className="flex gap-x-3">
+          <img className="h-[25px]" src={userImg} alt="" />
           {loading ? (
             <SkeletonLoader parentClass={"mt-1"} gridCount={1} boxLoaderHeight={"14px"} boxLoaderWidth={"100px"} />
           ) : (

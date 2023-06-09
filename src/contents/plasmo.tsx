@@ -5,9 +5,10 @@ import ReactDOM from "react-dom/client"
 import { config } from "../config"
 import ModalElem from "./components/Modal"
 import VerifyEmail from "./components/VerifyEmail"
+
 let elem: any
 
-export const getRootContainer = () =>
+export const getRootContainer = () => {
   new Promise(() => {
     const checkInterval = setInterval(() => {
       clearInterval(checkInterval)
@@ -21,11 +22,17 @@ export const getRootContainer = () =>
           })
         }
       }
-      if (config?.linkedin_regex.test(window.location.href)) {
-        searchButton()
-      }
+      const observer = new MutationObserver(() => {
+        if (config?.linkedin_regex.test(window.location.href)) {
+          if (!document.querySelector(`#${config.search_btn_id}`)) {
+            searchButton()
+          }
+        }
+      })
+      observer.observe(document.body, { subtree: true, attributes: false, childList: true })
     }, 137)
   })
+}
 
 function extractEmailAddresses(text) {
   const regex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g
@@ -45,7 +52,7 @@ function addButton(emailNode, email) {
 
 async function searchButton() {
   elem = document.createElement("div")
-  elem.id = 'search-button'
+  elem.id = config.search_btn_id
   elem.innerHTML = `<svg
   width="20"
   height="20"
@@ -68,7 +75,7 @@ async function searchButton() {
   modalElem.classList.add("hidden")
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999`
+  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999;animation:slide 1s;@keyframes slide { right:}`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
