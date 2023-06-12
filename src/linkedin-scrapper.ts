@@ -63,36 +63,14 @@ export const linkedin_scrapper = {
     return output ?? []
   },
   bio: async () => {
-    const code = [...document.querySelectorAll("code")].find((a) => {
-      const object = JSON.parse(a.innerText)?.included?.[1]
-      return isValidJSON(a.innerText) && object
-    })
-    const data = JSON.parse(code.innerText)
-    const { firstName, lastName, headline, publicIdentifier } = data.included[0]
-    // document.querySelector(".pv-text-details__separator > a").click()
-    // await sleep(2000)
-    // const email = document.querySelector("[href^=mailto]")?.href?.replace("mailto:", "")
-    // document.querySelector("[aria-label=Dismiss]").click()
     return {
-      firstName,
-      lastName,
-      headline,
-      publicIdentifier: "https://linkedin.com/in/" + publicIdentifier,
-      // email
+      fullName: document.querySelector(".v-align-middle").innerText,
+      headline: document.querySelector(".text-body-medium").innerText,
+      publicIdentifier: document
+        .querySelector("#top-card-text-details-contact-info")
+        .href.replace("overlay/contact-info/", "")
     }
   }
-}
-
-function isValidJSON(str) {
-  try {
-    JSON.parse(str)
-    return true
-  } catch {
-    return false
-  }
-}
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 // // use
@@ -108,7 +86,6 @@ export function scrapeData() {
     const value = await asyncForEach(Object.entries(linkedin_scrapper), async ([key, value]) => {
       data[key] = await value()
     })
-    console.log({scrapedData: data})
     resolve(data)
   })
 }
