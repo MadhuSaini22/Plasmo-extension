@@ -72,10 +72,9 @@ async function searchButton() {
   elem.style.marginTop = "6px"
   elem.style.cursor = "pointer"
   let modalElem = document.createElement("div")
-  modalElem.classList.add("hidden")
   modalElem.id = "modal-elem"
   //@ts-ignore
-  modalElem.style = `position:fixed;right:100px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999;animation:slide 1s;@keyframes slide { right:}`
+  modalElem.style = `position:fixed;right:-500px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999;`
   const root = document.querySelector("h1.text-heading-xlarge")
   //@ts-ignore
   root.style = `display: flex!important;`
@@ -83,8 +82,14 @@ async function searchButton() {
   document.body.prepend(modalElem)
   ReactDOM.createRoot(modalElem).render(<ModalElem />)
   elem.addEventListener("click", () => {
-    if (document.querySelector("#modal-elem")) {
-      document.querySelector("#modal-elem").classList.toggle("hidden")
+    if (modalElem.classList.contains("slide-in")) {
+      modalElem.classList.remove("slide-in");
+      modalElem.classList.add("slide-out");
+    } else if (modalElem.classList.contains("slide-out")) {
+      modalElem.classList.remove("slide-out");
+      modalElem.classList.add("slide-in");
+    } else {
+      modalElem.classList.add("slide-in");
     }
   })
 }
