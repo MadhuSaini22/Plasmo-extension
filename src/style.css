@@ -37,18 +37,21 @@ html {
   right: 100px;
   animation:slide-out .3s ease forwards;
 }
+.show {
+  display: block !important;
+}
 
 @keyframes slide-in {
  from {
   right: -500px;
  }
  to {
-  right: 100px;
+  right: 0px;
  }
 }
 @keyframes slide-out {
   from {
-   right: 100px;
+   right: 0px;
   }
   to {
    right: -500px;

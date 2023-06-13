@@ -79,17 +79,36 @@ async function searchButton() {
   //@ts-ignore
   root.style = `display: flex!important;`
   root.insertAdjacentElement("beforeend", elem)
+  const overlayElem = document.createElement("div")
+  overlayElem.id = "modal-overlay"
+  //@ts-ignore
+  overlayElem.style = `
+    z-index: 10;
+    position: fixed;
+    background: gray;
+    width: 100vw;
+    display: none;
+    height: 100vh;
+    opacity: 0.8;`
   document.body.prepend(modalElem)
+  document.body.prepend(overlayElem)
   ReactDOM.createRoot(modalElem).render(<ModalElem />)
   elem.addEventListener("click", () => {
     if (modalElem.classList.contains("slide-in")) {
       modalElem.classList.remove("slide-in");
       modalElem.classList.add("slide-out");
     } else if (modalElem.classList.contains("slide-out")) {
+      overlayElem.classList.add("show")
       modalElem.classList.remove("slide-out");
       modalElem.classList.add("slide-in");
     } else {
       modalElem.classList.add("slide-in");
+      overlayElem.classList.add("show")
     }
+  })
+  overlayElem.addEventListener("click", () => {
+    overlayElem.classList.remove("show")
+    modalElem.classList.add("slide-out");
+    modalElem.classList.remove("slide-in");
   })
 }

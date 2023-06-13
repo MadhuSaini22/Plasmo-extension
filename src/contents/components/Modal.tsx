@@ -45,6 +45,7 @@ const ModalElem: React.FC<{}> = () => {
     if (document.querySelector("#modal-elem").classList.contains("slide-in")) {
       document.querySelector("#modal-elem").classList.remove("slide-in");
       document.querySelector("#modal-elem").classList.add("slide-out");
+      document.querySelector("#modal-overlay").classList.remove("show")
     } else if (document.querySelector("#modal-elem").classList.contains("slide-out")) {
       document.querySelector("#modal-elem").classList.remove("slide-out");
       document.querySelector("#modal-elem").classList.add("slide-in");
@@ -112,7 +113,7 @@ const ModalElem: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="rounded-md p-4 h-full" style={{ border: "1px solid black", borderRadius: "10px" }}>
+          <div className="rounded-md p-4 h-auto" style={{ border: "1px solid black", borderRadius: "10px" }}>
             <div className="flex justify-evenly rounded-lg">
               <div className="w-16 h-16">
                 <img className="w-full h-full" src={person} alt="" />
