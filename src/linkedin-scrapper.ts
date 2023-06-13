@@ -64,7 +64,7 @@ export const linkedin_scrapper = {
   },
   bio: async () => {
     return {
-      fullName: document.querySelector(".v-align-middle").innerText,
+      fullName: document.querySelector("h1.v-align-middle").innerText,
       headline: document.querySelector(".text-body-medium").innerText,
       publicIdentifier: document
         .querySelector("#top-card-text-details-contact-info")
