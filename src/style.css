@@ -28,3 +28,29 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #ff0000;
 }
+
+.slide-in {
+  right: -500px;
+  animation:slide-in .3s ease forwards;
+}
+.slide-out {
+  right: 100px;
+  animation:slide-out .3s ease forwards;
+}
+
+@keyframes slide-in {
+ from {
+  right: -500px;
+ }
+ to {
+  right: 100px;
+ }
+}
+@keyframes slide-out {
+  from {
+   right: 100px;
+  }
+  to {
+   right: -500px;
+  }
+ }

@@ -42,7 +42,15 @@ const ModalElem: React.FC<{}> = () => {
   }, [])
 
   function closeHandler() {
-    document.querySelector("#modal-elem") && document.querySelector("#modal-elem").classList.toggle("hidden")
+    if (document.querySelector("#modal-elem").classList.contains("slide-in")) {
+      document.querySelector("#modal-elem").classList.remove("slide-in");
+      document.querySelector("#modal-elem").classList.add("slide-out");
+    } else if (document.querySelector("#modal-elem").classList.contains("slide-out")) {
+      document.querySelector("#modal-elem").classList.remove("slide-out");
+      document.querySelector("#modal-elem").classList.add("slide-in");
+    } else {
+      document.querySelector("#modal-elem").classList.add("slide-in");
+    }
   }
 
   useEffect(() => {}, [profile])
