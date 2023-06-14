@@ -21,9 +21,7 @@ const ModalElem: React.FC<{}> = () => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log({ profile, loggedIn, loading })
     document.querySelector("#search-button").addEventListener("click", async () => {
-      console.log({ profile, loggedIn, loading })
       if (document.querySelector("#modal-elem")) {
         setLoading(true)
         chrome.runtime.sendMessage(
