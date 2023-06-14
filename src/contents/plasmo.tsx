@@ -1,10 +1,8 @@
-import "~output.css"
-
-import ReactDOM from "react-dom/client"
-
-import { config } from "../config"
-import ModalElem from "./components/Modal"
-import VerifyEmail from "./components/VerifyEmail"
+import "~output.css";
+import ReactDOM from "react-dom/client";
+import { config } from "../config";
+import ModalElem from "./components/Modal";
+import VerifyEmail from "./components/VerifyEmail";
 
 let elem: any
 
@@ -101,39 +99,21 @@ async function searchButton() {
     // Appending Modal and Modal overlay
     document.body.prepend(modalElem)
     document.body.prepend(overlayElem)
-
-    setTimeout(() => {
-      ReactDOM.createRoot(modalElem).render(<ModalElem />)
-    }, 500)
+    ReactDOM.createRoot(modalElem).render(<ModalElem />)
 
     // Event handlers
     elem.addEventListener("click", () => {
-      chrome.runtime.sendMessage(
-        {
-          type: "get_token",
-          url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
-            .replace("https://www.", "")
-            .slice(0, -1)}%25%27`
-        },
-        (res) => {
-          // console.log({ cookie: res.cookie })
-          if (res.cookie) {
-            if (modalElem.classList.contains("slide-in")) {
-              modalElem.classList.remove("slide-in")
-              modalElem.classList.add("slide-out")
-            } else if (modalElem.classList.contains("slide-out")) {
-              overlayElem.classList.add("show")
-              modalElem.classList.remove("slide-out")
-              modalElem.classList.add("slide-in")
-            } else {
-              modalElem.classList.add("slide-in")
-              overlayElem.classList.add("show")
-            }
-          } else {
-            window.open("https://infinity.500apps.com/", "_blank")
-          }
-        }
-      )
+      if (modalElem.classList.contains("slide-in")) {
+        modalElem.classList.remove("slide-in")
+        modalElem.classList.add("slide-out")
+      } else if (modalElem.classList.contains("slide-out")) {
+        overlayElem.classList.add("show")
+        modalElem.classList.remove("slide-out")
+        modalElem.classList.add("slide-in")
+      } else {
+        modalElem.classList.add("slide-in")
+        overlayElem.classList.add("show")
+      }
     })
     overlayElem.addEventListener("click", () => {
       overlayElem.classList.remove("show")

@@ -17,11 +17,13 @@ import { parseJwt } from "~utils"
 const ModalElem: React.FC<{}> = () => {
   const [profile, setProfile] = useState<any>(null)
   const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
   useEffect(() => {
     document.querySelector("#search-button").addEventListener("click", async () => {
       if (document.querySelector("#modal-elem")) {
+        setLoading(true)
         chrome.runtime.sendMessage(
           {
             type: "get_token",
@@ -33,6 +35,9 @@ const ModalElem: React.FC<{}> = () => {
             if (res.cookie) {
               setUser(parseJwt(res?.cookie))
               setProfile(res?.data?.[0])
+              setLoggedIn(true)
+            } else {
+              setLoggedIn(false)
             }
             setLoading(false)
           }
@@ -45,14 +50,14 @@ const ModalElem: React.FC<{}> = () => {
 
   function closeHandler() {
     if (document.querySelector("#modal-elem").classList.contains("slide-in")) {
-      document.querySelector("#modal-elem").classList.remove("slide-in");
-      document.querySelector("#modal-elem").classList.add("slide-out");
+      document.querySelector("#modal-elem").classList.remove("slide-in")
+      document.querySelector("#modal-elem").classList.add("slide-out")
       document.querySelector("#modal-overlay").classList.remove("show")
     } else if (document.querySelector("#modal-elem").classList.contains("slide-out")) {
-      document.querySelector("#modal-elem").classList.remove("slide-out");
-      document.querySelector("#modal-elem").classList.add("slide-in");
+      document.querySelector("#modal-elem").classList.remove("slide-out")
+      document.querySelector("#modal-elem").classList.add("slide-in")
     } else {
-      document.querySelector("#modal-elem").classList.add("slide-in");
+      document.querySelector("#modal-elem").classList.add("slide-in")
     }
   }
 
@@ -70,7 +75,7 @@ const ModalElem: React.FC<{}> = () => {
         </button>
       </div>
 
-      {loading || profile ? (
+      {loading && profile && loggedIn ? (
         <>
           <div className="rounded-md p-4" style={{ border: "1px solid black", borderRadius: "10px" }}>
             <div className="flex gap-x-6">
@@ -211,25 +216,44 @@ const ModalElem: React.FC<{}> = () => {
             </div>
           </div>
         </>
-      ) : !loading && !profile ? (
+      ) : !loading && !profile && loggedIn ? (
         <>
           <div className="text-[18px] font-bold text-center h-[200px] flex items-center justify-center">
             No Data Found
           </div>
         </>
+      ) : !profile && !loading && !loggedIn ? (
+        <>
+          <div className="flex justify-center flex-col h-[100px]">
+            <div className="flex items-center justify-center font-bold mb-4">Please login to see data</div>
+            <a
+              href="https://infinity.500apps.com/"
+              target="_blank"
+              onClick={() => closeHandler()}
+              className="text-[18px] font-bold text-center flex items-center justify-center">
+              Log In
+            </a>
+          </div>
+        </>
       ) : (
-        <></>
+        <>
+          <div className="flex justify-center flex-col h-[100px]">
+          <SkeletonLoader gridCount={1} boxLoaderHeight={"80px"} boxLoaderWidth={"350px"} />
+          </div>
+        </>
       )}
-      <div className="rounded-md p-2">
-        <div className="flex gap-x-3">
-          <img className="h-[25px]" src={userImg} alt="" />
-          {loading ? (
-            <SkeletonLoader parentClass={"mt-1"} gridCount={1} boxLoaderHeight={"14px"} boxLoaderWidth={"100px"} />
-          ) : (
-            <span className="text-[18px]">{user?.email ?? ""}</span>
-          )}
+      {loggedIn && (
+        <div className="rounded-md p-2">
+          <div className="flex gap-x-3">
+            <img className="h-[25px]" src={userImg} alt="" />
+            {loading ? (
+              <SkeletonLoader parentClass={"mt-1"} gridCount={1} boxLoaderHeight={"14px"} boxLoaderWidth={"100px"} />
+            ) : (
+              <span className="text-[18px]">{user?.email ?? ""}</span>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
