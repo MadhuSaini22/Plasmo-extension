@@ -38,6 +38,7 @@ const ModalElem: React.FC<{}> = () => {
               setLoggedIn(true)
             } else {
               setLoggedIn(false)
+              setProfile(null)
             }
             setLoading(false)
           }
@@ -61,7 +62,7 @@ const ModalElem: React.FC<{}> = () => {
     }
   }
 
-  useEffect(() => {}, [profile])
+  useEffect(() => {}, [profile, loggedIn, loading])
 
   return (
     <div id="rendered_modal" className="border border-gray-700 gap-y-4 flex flex-col rounded-lg w-[400px] h-auto">
@@ -75,7 +76,7 @@ const ModalElem: React.FC<{}> = () => {
         </button>
       </div>
 
-      {loading && profile && loggedIn ? (
+      {profile && loggedIn && !loading ? (
         <>
           <div className="rounded-md p-4" style={{ border: "1px solid black", borderRadius: "10px" }}>
             <div className="flex gap-x-6">
@@ -216,13 +217,13 @@ const ModalElem: React.FC<{}> = () => {
             </div>
           </div>
         </>
-      ) : !loading && !profile && loggedIn ? (
+      ) : !profile && loggedIn && !loading? (
         <>
           <div className="text-[18px] font-bold text-center h-[200px] flex items-center justify-center">
             No Data Found
           </div>
         </>
-      ) : !profile && !loading && !loggedIn ? (
+      ) : !profile && !loggedIn && !loading ? (
         <>
           <div className="flex justify-center flex-col h-[100px]">
             <div className="flex items-center justify-center font-bold mb-4">Please login to see data</div>
@@ -235,12 +236,12 @@ const ModalElem: React.FC<{}> = () => {
             </a>
           </div>
         </>
-      ) : (
-        <>
-          <div className="flex justify-center flex-col h-[100px]">
+      ) : loading ? (
+        <div className="flex justify-center flex-col h-[100px]">
           <SkeletonLoader gridCount={1} boxLoaderHeight={"80px"} boxLoaderWidth={"350px"} />
-          </div>
-        </>
+        </div>
+      ):(
+        <></>
       )}
       {loggedIn && (
         <div className="rounded-md p-2">
