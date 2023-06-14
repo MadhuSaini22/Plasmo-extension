@@ -75,7 +75,7 @@ const ModalElem: React.FC<{}> = () => {
         </button>
       </div>
 
-      {loading && profile && loggedIn ? (
+      {profile && loggedIn ? (
         <>
           <div className="rounded-md p-4" style={{ border: "1px solid black", borderRadius: "10px" }}>
             <div className="flex gap-x-6">
@@ -216,7 +216,7 @@ const ModalElem: React.FC<{}> = () => {
             </div>
           </div>
         </>
-      ) : !loading && !profile && loggedIn ? (
+      ) : !profile && loggedIn ? (
         <>
           <div className="text-[18px] font-bold text-center h-[200px] flex items-center justify-center">
             No Data Found
@@ -236,11 +236,9 @@ const ModalElem: React.FC<{}> = () => {
           </div>
         </>
       ) : (
-        <>
-          <div className="flex justify-center flex-col h-[100px]">
+        <div className="flex justify-center flex-col h-[100px]">
           <SkeletonLoader gridCount={1} boxLoaderHeight={"80px"} boxLoaderWidth={"350px"} />
-          </div>
-        </>
+        </div>
       )}
       {loggedIn && (
         <div className="rounded-md p-2">
