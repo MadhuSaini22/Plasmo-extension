@@ -73,21 +73,23 @@ async function searchButton() {
   elem.style.marginTop = "6px"
   elem.style.cursor = "pointer"
   const root = document.querySelector("h1.text-heading-xlarge")
-  //@ts-ignore
-  root.style = `display: flex!important;`
-  root.insertAdjacentElement("beforeend", elem)
+  const modalElement = document.querySelector("#modal-elem")
 
-  // Modal
-  let modalElem = document.createElement("div")
-  modalElem.id = "modal-elem"
-  //@ts-ignore
-  modalElem.style = `position:fixed;right:-500px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999;`
+  if (root && !modalElement) {
+    //@ts-ignore
+    root.style = `display: flex!important;`
+    root.insertAdjacentElement("beforeend", elem)
 
-  // Modal Overlay
-  const overlayElem = document.createElement("div")
-  overlayElem.id = "modal-overlay"
-  //@ts-ignore
-  overlayElem.style = `
+    // Modal
+    let modalElem = document.createElement("div")
+    modalElem.id = "modal-elem"
+    //@ts-ignore
+    modalElem.style = `position:fixed;right:-500px;top:70px;background:white;margin:5px;padding:20px;border:1px solid black;border-radius:10px;z-index:9999;`
+
+    const overlayElem = document.createElement("div")
+    overlayElem.id = "modal-overlay"
+    //@ts-ignore
+    overlayElem.style = `
     z-index: 10;
     position: fixed;
     background: gray;
@@ -96,47 +98,47 @@ async function searchButton() {
     height: 100vh;
     opacity: 0.8;`
 
-  // Appending Modal and Modal overlay
-  document.body.prepend(modalElem)
-  document.body.prepend(overlayElem)
+    // Appending Modal and Modal overlay
+    document.body.prepend(modalElem)
+    document.body.prepend(overlayElem)
 
-  setTimeout(() => {
-    ReactDOM.createRoot(modalElem).render(<ModalElem />)
-  }, 500)
+    setTimeout(() => {
+      ReactDOM.createRoot(modalElem).render(<ModalElem />)
+    }, 500)
 
-  // Event handlers
-
-  elem.addEventListener("click", () => {
-    chrome.runtime.sendMessage(
-      {
-        type: "get_token",
-        url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
-          .replace("https://www.", "")
-          .slice(0, -1)}%25%27`
-      },
-      (res) => {
-        // console.log({ cookie: res.cookie })
-        if (res.cookie) {
-          if (modalElem.classList.contains("slide-in")) {
-            modalElem.classList.remove("slide-in")
-            modalElem.classList.add("slide-out")
-          } else if (modalElem.classList.contains("slide-out")) {
-            overlayElem.classList.add("show")
-            modalElem.classList.remove("slide-out")
-            modalElem.classList.add("slide-in")
+    // Event handlers
+    elem.addEventListener("click", () => {
+      chrome.runtime.sendMessage(
+        {
+          type: "get_token",
+          url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
+            .replace("https://www.", "")
+            .slice(0, -1)}%25%27`
+        },
+        (res) => {
+          // console.log({ cookie: res.cookie })
+          if (res.cookie) {
+            if (modalElem.classList.contains("slide-in")) {
+              modalElem.classList.remove("slide-in")
+              modalElem.classList.add("slide-out")
+            } else if (modalElem.classList.contains("slide-out")) {
+              overlayElem.classList.add("show")
+              modalElem.classList.remove("slide-out")
+              modalElem.classList.add("slide-in")
+            } else {
+              modalElem.classList.add("slide-in")
+              overlayElem.classList.add("show")
+            }
           } else {
-            modalElem.classList.add("slide-in")
-            overlayElem.classList.add("show")
+            window.open("https://infinity.500apps.com/", "_blank")
           }
-        } else {
-          window.open("https://infinity.500apps.com/", "_blank")
         }
-      }
-    )
-  })
-  overlayElem.addEventListener("click", () => {
-    overlayElem.classList.remove("show")
-    modalElem.classList.add("slide-out")
-    modalElem.classList.remove("slide-in")
-  })
+      )
+    })
+    overlayElem.addEventListener("click", () => {
+      overlayElem.classList.remove("show")
+      modalElem.classList.add("slide-out")
+      modalElem.classList.remove("slide-in")
+    })
+  }
 }
