@@ -38,11 +38,6 @@ function IndexPopup() {
         if (domainInfo && domainInfo.length > 0) setDomainData(domainInfo[0])
         else setDomainData({})
       }
-
-      // const userInfo = await getUserInfo()
-      // if (userInfo) setUserData(userInfo)
-      // else setUserData({})
-      console.log("check", token)
     }
     fetchData()
   }, [token])

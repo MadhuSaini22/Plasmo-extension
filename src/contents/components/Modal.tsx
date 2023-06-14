@@ -20,25 +20,27 @@ const ModalElem: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-      document.querySelector("#search-button").addEventListener("click", async () => {
-        if (document.querySelector("#modal-elem")) {
-          chrome.runtime.sendMessage(
-            {
-              type: "get_token",
-              url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
-                .replace("https://www.", "")
-                .slice(0, -1)}%25%27`
-            },
-            (res) => {
+    document.querySelector("#search-button").addEventListener("click", async () => {
+      if (document.querySelector("#modal-elem")) {
+        chrome.runtime.sendMessage(
+          {
+            type: "get_token",
+            url: `https://api.eu1.500apps.com/elastic/search?offset=0&limit=50&where=linkedin_url%20like%20%27%25${window.location.href
+              .replace("https://www.", "")
+              .slice(0, -1)}%25%27`
+          },
+          (res) => {
+            if (res.cookie) {
               setUser(parseJwt(res?.cookie))
               setProfile(res?.data?.[0])
-              setLoading(false)
             }
-          )
-        }
-        const scrapedData = await scrapeData()
-        console.log({ scrapedData })
-      })
+            setLoading(false)
+          }
+        )
+      }
+      const scrapedData = await scrapeData()
+      console.log({ scrapedData })
+    })
   }, [])
 
   function closeHandler() {
