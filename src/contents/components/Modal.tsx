@@ -84,7 +84,7 @@ const ModalElem: React.FC<{}> = () => {
                 <img className="w-full h-full p-2 object-cover" src={linkedin} alt="linkedin" />
               </div>
               <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">LinkedIn</div>
+                <div className="text-[18px] font-semibold">{profile?.company_name}</div>
                 <div className="text-[12px]">
                   <div className="flex gap-x-3">
                     <UserGroupIcon className="w-6 h-6" />
@@ -205,10 +205,10 @@ const ModalElem: React.FC<{}> = () => {
                   </>
                 ) : (
                   <>
-                    <a href={profile?.company_linked_url ?? "#"} target="_blank">
+                    <a href={profile?.company_linked_url ?? ""} target="_blank">
                       <img src={linkedin} alt="Linkedin" className="h-6 w-6 mt-1 cursor-pointer" />
                     </a>
-                    <a href={profile?.company_twitter_url ?? "#"} target="_blank">
+                    <a href={`https://www.${profile?.company_twitter_url || ""}`} target="_blank">
                       <img src={twitter} alt="Twitter" className="h-6 w-6 mt-1 cursor-pointer" />
                     </a>
                   </>
@@ -217,7 +217,7 @@ const ModalElem: React.FC<{}> = () => {
             </div>
           </div>
         </>
-      ) : !profile && loggedIn && !loading? (
+      ) : !profile && loggedIn && !loading ? (
         <>
           <div className="text-[18px] font-bold text-center h-[200px] flex items-center justify-center">
             No Data Found
@@ -240,7 +240,7 @@ const ModalElem: React.FC<{}> = () => {
         <div className="flex justify-center flex-col h-[100px]">
           <SkeletonLoader gridCount={1} boxLoaderHeight={"80px"} boxLoaderWidth={"350px"} />
         </div>
-      ):(
+      ) : (
         <></>
       )}
       {loggedIn && (
